@@ -336,7 +336,7 @@
               <MiscControls></MiscControls>
               <Define>USE_STDPERIPH_DRIVER,STM32F10X_MD</Define>
               <Undefine></Undefine>
-              <IncludePath>.\Lib\inc;.\Lib\src;.\USER;.\StartUp;.\HARDWARE;.\CONFIG</IncludePath>
+              <IncludePath>.\Lib\inc;.\Lib\src;.\StartUp;.\USER;.\CONFIG;.\HARDWARE;.\MATH</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -605,6 +605,11 @@
               <FileType>1</FileType>
               <FilePath>.\HARDWARE\MPU6050.c</FilePath>
             </File>
+            <File>
+              <FileName>NRF24L01.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\HARDWARE\NRF24L01.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -624,6 +629,21 @@
               <FileName>I2C_HardWare.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\CONFIG\I2C_HardWare.c</FilePath>
+            </File>
+            <File>
+              <FileName>ADC.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\CONFIG\ADC.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>MATH</GroupName>
+          <Files>
+            <File>
+              <FileName>kalman.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\MATH\kalman.c</FilePath>
             </File>
           </Files>
         </Group>

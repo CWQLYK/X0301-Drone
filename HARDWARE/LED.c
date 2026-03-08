@@ -3,7 +3,6 @@
 //	邮箱:3078510877@qq.com
 //	日期：2026.3.4
 //	版本：1.0
-
 //灯泡模块
 #include "ALL_DEFINE.h"
 void LED_Init(void)                     //初始化LED
@@ -30,6 +29,16 @@ void lfLED_OFF(void)
 	GPIO_SetBits(GPIOB,lfLED_io);
 }
 
+void rfLED_ON(void)
+{
+	GPIO_ResetBits(GPIOB,rfLED_io);
+}
+
+void rfLED_OFF(void)
+{
+	GPIO_SetBits(GPIOB,rfLED_io);
+}
+
 void lbLED_ON(void)
 {
     GPIO_ResetBits(GPIOB,lbLED_io);
@@ -40,5 +49,15 @@ void lbLED_OFF(void)
 	GPIO_SetBits(GPIOB,lbLED_io);
 }
 
+
+void rbLED_ON(void)
+{
+    GPIO_ResetBits(GPIOB,rbLED_io);
+}
+
+void rbLED_OFF(void)
+{
+	GPIO_SetBits(GPIOB,rbLED_io);
+}
 
 

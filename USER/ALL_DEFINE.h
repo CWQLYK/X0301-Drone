@@ -11,6 +11,14 @@
 #include "MPU6050.h"
 #include "I2C.h"
 #include "STM32F10x_IWDG.h"
+#include "kalman.h"
+#include "ADC.h"
+#include "NRF24L01.h"
+#include "filter.h"
+#include "imu.h"
+#include "myMath.h"
+#include "pid.h"
+#include "Control.h"
 
 #undef SUCCESS
 #define SUCCESS 0
@@ -18,19 +26,10 @@
 #define FAILED  1
 
 
-/***************UART1 GPIO定义******************/
-#define RCC_UART1		RCC_APB2Periph_GPIOA
-#define GPIO_UART1		GPIOA
-#define UART1_Pin_TX	GPIO_Pin_9
-#define UART1_Pin_RX	GPIO_Pin_10
 
 
-/***************LED GPIO定义******************/
-#define LED_GPIOB  GPIOB
-#define rfLED_io    GPIO_Pin_1		//机身右后灯	
-#define lfLED_io    GPIO_Pin_2		//机身左后灯	
-#define lbLED_io    GPIO_Pin_8		//机身左前灯	
-#define rbLED_io    GPIO_Pin_9		//机身右前灯	
+
+
 
 #endif
 

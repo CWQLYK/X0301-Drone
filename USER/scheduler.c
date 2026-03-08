@@ -7,6 +7,7 @@
 #include "ALL_DEFINE.h"
 
 loop_t loop;
+uint32_t time[10];
 
 void Loop_Check()                       //时间计数器累加 + 执行校验
 {   
@@ -73,7 +74,11 @@ void main_loop()
 
 void Duty_2ms(void)
 {
+	time[0] = GetSysTime_us();
+	Mpu6050GetOffset();				          //读取陀螺仪数据
 
+
+	time[0] = GetSysTime_us() - time[0];
 }
 
 void Duty_4ms(void)
