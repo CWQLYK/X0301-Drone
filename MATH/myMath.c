@@ -5,9 +5,8 @@
 //	版本：1.0
 //  数学计算相关函数
  
-#include "myMath.h"
 #include <math.h>
-#include "sys.h"
+#include "ALL_DEFINE.h"
 
 const float M_PI = 3.1415926535;
 const float RtA = 57.2957795f;

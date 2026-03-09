@@ -336,7 +336,7 @@
               <MiscControls></MiscControls>
               <Define>USE_STDPERIPH_DRIVER,STM32F10X_MD</Define>
               <Undefine></Undefine>
-              <IncludePath>.\Lib\inc;.\Lib\src;.\StartUp;.\USER;.\CONFIG;.\HARDWARE;.\MATH</IncludePath>
+              <IncludePath>.\Lib\inc;.\Lib\src;.\StartUp;.\USER;.\CONFIG;.\HARDWARE;.\MATH;.\HAL</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -635,6 +635,11 @@
               <FileType>1</FileType>
               <FilePath>.\CONFIG\ADC.c</FilePath>
             </File>
+            <File>
+              <FileName>SPI.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\CONFIG\SPI.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -644,6 +649,51 @@
               <FileName>kalman.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\MATH\kalman.c</FilePath>
+            </File>
+            <File>
+              <FileName>filter.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\MATH\filter.c</FilePath>
+            </File>
+            <File>
+              <FileName>imu.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\MATH\imu.c</FilePath>
+            </File>
+            <File>
+              <FileName>pid.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\MATH\pid.c</FilePath>
+            </File>
+            <File>
+              <FileName>myMath.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\MATH\myMath.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>HAL</GroupName>
+          <Files>
+            <File>
+              <FileName>Attitude_Process.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\HAL\Attitude_Process.c</FilePath>
+            </File>
+            <File>
+              <FileName>Attitude_Process.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\HAL\Attitude_Process.h</FilePath>
+            </File>
+            <File>
+              <FileName>Control.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\HAL\Control.c</FilePath>
+            </File>
+            <File>
+              <FileName>Control.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\HAL\Control.h</FilePath>
             </File>
           </Files>
         </Group>

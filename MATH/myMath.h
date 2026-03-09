@@ -159,3 +159,4 @@ extern float Q_rsqrt(float number);
 extern float VariableParameter(float error);
 
 #endif 
+

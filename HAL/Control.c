@@ -7,6 +7,222 @@
 
 #include "ALL_DEFINE.h"
 
+// 基础宏定义：覆盖系统默认定义，统一代码中的状态标识
+#undef NULL
+#define NULL 0           // 空指针定义
+#undef DISABLE 
+#define DISABLE 0        // 禁用状态
+#undef ENABLE 
+#define ENABLE 1         // 使能状态
+#undef REST
+#define REST 0           // 复位状态
+#undef SET 
+#define SET 1            // 设置状态
+#undef EMERGENT
+#define EMERGENT 0       // 紧急状态（如紧急上锁）
 
 
+//------------------------------------------------------------------------------
+// PID对象指针数组：批量管理所有PID控制器，方便统一复位/操作
+// 数组元素说明：
+// &pidRateX/&pidRateY/&pidRateZ ：角速度内环PID（X/Y/Z轴，单位：°/s）
+// &pidRoll/&pidPitch/&pidYaw    ：角度外环PID（横滚/俯仰/偏航，单位：°）
+// &pidHeightRate/&pidHeightHigh：高度相关PID
+// &Flow_SpeedPid_x/Flow_PosPid_x/Flow_SpeedPid_y/Flow_PosPid_y：光流相关PID
+PidObject *(pPidObject[])={
+    &pidRateX,&pidRateY,&pidRateZ,
+    &pidRoll,&pidPitch,&pidYaw,
+    &pidHeightRate,&pidHeightHigh,
+    &Flow_SpeedPid_x,&Flow_PosPid_x,
+    &Flow_SpeedPid_y,&Flow_PosPid_y
+};
+
+/**************************************************************
+ * @brief  四轴姿态串级PID控制核心函数
+ * @param  dt: 控制周期（两次调用的时间间隔，单位：秒）
+ * @retval 无
+ * @note   1. 采用串级PID控制：外环（角度）→ 内环（角速度）
+ *         2. 状态机设计：等待解锁→准备控制→正式控制→紧急退出
+ *         3. 控制逻辑：遥控器解锁后，先复位PID，再通过串级PID计算姿态控制量
+ ***************************************************************/
+void FlightPidControl(float dt)
+{
+    // 控制状态机变量：静态变量，保持上次调用的状态
+    // 状态枚举（未显式定义，通过字面量表示）：
+    // WAITING_1 ：等待解锁状态
+    // READY_11  ：解锁后准备状态（复位PID）
+    // PROCESS_31：正常控制状态（串级PID计算）
+    // EXIT_255  ：退出/紧急停止状态
+    volatile static uint8_t status=WAITING_1;
+
+    // 状态机分支处理
+    switch(status)
+    {        
+        case WAITING_1: // 状态1：等待解锁
+            // 检测全局解锁标志位（ALL_flag.unlock由遥控器指令控制）
+            if(ALL_flag.unlock)
+            {
+                status = READY_11; // 解锁成功，进入准备状态
+            }			
+            break;
+
+        case READY_11:  // 状态2：准备进入控制（解锁后初始化）
+            // 批量复位前8个PID控制器的历史数据（误差、积分项等），避免遗留数据影响
+            pidRest(pPidObject,8); 
+
+            // 初始化偏航角相关参数：锁定初始偏航角为0°
+            Angle.yaw = pidYaw.desired =  pidYaw.measured = 0;  
+        
+            status = PROCESS_31; // 进入正式控制状态
+            break;			
+
+        case PROCESS_31: // 状态3：正式进入串级PID控制
+            // ====================== 步骤1：更新PID测量值 ======================
+            // 内环（角速度PID）测量值：MPU6050陀螺仪原始值转换为°/s（Gyro_G为转换系数）
+            pidRateX.measured = MPU6050.gyroX * Gyro_G; // X轴角速度（横滚角速度）
+            pidRateY.measured = MPU6050.gyroY * Gyro_G; // Y轴角速度（俯仰角速度）
+            pidRateZ.measured = MPU6050.gyroZ * Gyro_G; // Z轴角速度（偏航角速度）
+        
+            // 外环（角度PID）测量值：姿态解算后的角度（单位：°）
+            pidPitch.measured = Angle.pitch;  // 俯仰角测量值
+            pidRoll.measured = Angle.roll;    // 横滚角测量值
+            pidYaw.measured = Angle.yaw;      // 偏航角测量值
+        
+            // ====================== 步骤2：串级PID计算（横滚角） ======================
+            pidUpdate(&pidRoll,dt);          // 执行外环横滚角PID计算
+            pidRateX.desired = pidRoll.out;  // 外环输出作为内环期望值（串级核心）
+            pidUpdate(&pidRateX,dt);         // 执行内环横滚角速度PID计算
+
+            // ====================== 步骤3：串级PID计算（俯仰角） ======================
+            pidUpdate(&pidPitch,dt);         // 执行外环俯仰角PID计算
+            pidRateY.desired = pidPitch.out; // 外环输出作为内环期望值
+            pidUpdate(&pidRateY,dt);         // 执行内环俯仰角速度PID计算
+
+            // ====================== 步骤4：串级PID计算（偏航角） ======================
+            CascadePID(&pidRateZ,&pidYaw,dt);	
+            break;
+
+        case EXIT_255:   // 状态4：退出控制（紧急上锁/异常）
+            pidRest(pPidObject,8);  // 复位所有PID参数
+            status = WAITING_1;     // 回到等待解锁状态
+            break;
+
+        default: // 异常状态：强制退出
+            status = EXIT_255;
+            break;
+    }
+
+    // 紧急上锁检测：任何时候检测到紧急上锁，立即退出控制
+    if(ALL_flag.unlock == EMERGENT) 
+    {
+        status = EXIT_255;
+    }
+}
+
+// 电机输出数组：存储4个电机的PWM控制值（0~1000 或 1000~2000，取决于FLY_TYPE）
+int16_t motor[4];
+// 电机宏定义：简化代码书写
+#define MOTOR1 motor[0] // 电机1（前左/右上，根据机架定义）
+#define MOTOR2 motor[1] // 电机2（前右/左上）
+#define MOTOR3 motor[2] // 电机3（后右/左下）
+#define MOTOR4 motor[3] // 电机4（后左/右下）
+
+/**************************************************************
+ * @brief  四轴电机混合控制函数（分配PID控制量到各个电机）
+ * @param  无
+ * @retval 无
+ * @note   1. 电机混合逻辑：油门基础值 + 姿态控制量（PID输出）
+ *         2. 安全保护：油门过低时关闭电机，紧急上锁时立即停转
+ *         3. PWM输出适配：不同飞控类型（FLY_TYPE）对应不同PWM范围
+ ***************************************************************/
+void MotorControl(void)
+{	
+    // 电机控制状态机变量：静态变量，保持上次状态
+    volatile static uint8_t status=WAITING_1;
+	
+    // 紧急上锁检测：优先处理，任何时候上锁都立即停电机
+    if(ALL_flag.unlock == EMERGENT) 
+    {
+        status = EXIT_255;	
+    }
+
+    // 电机控制状态机
+    switch(status)
+    {		
+        case WAITING_1: // 状态1：等待解锁
+            // 未解锁时，所有电机输出为0（停转）
+            MOTOR1 = MOTOR2 = MOTOR3 = MOTOR4 = 0;  
+            // 检测到解锁指令，进入下一步
+            if(ALL_flag.unlock)
+            {
+                status = WAITING_2;
+            }
+            break; 
+
+        case WAITING_2: // 状态2：解锁后等待油门指令
+            // 检测油门是否大于1100（用户拨动油门杆，准备起飞）
+            if(Remote.thr>1100)
+            {
+                status = PROCESS_31; // 进入电机控制状态
+            }
+            break;
+
+        case PROCESS_31: // 状态3：正常电机混合控制
+            {
+            // 局部变量：处理后的油门值（减去基础值1000，范围0~1000）
+
+            int16_t thr_temp;
+            thr_temp = Remote.thr - 1000; 
+
+            // 安全保护：油门低于1020（接近最小值），关闭所有电机，防止误启动
+            if(Remote.thr<1020)												
+            {
+                MOTOR1 = MOTOR2 = MOTOR3 = MOTOR4 = 0;
+                break;
+            }
+
+            // 基础油门赋值：限位在0~900（留100的余量给姿态控制）
+            MOTOR1 = MOTOR2 = MOTOR3 = MOTOR4 = LIMIT(thr_temp,0,900);
+
+            // ====================== 电机混合算法 ======================
+            // 核心逻辑：基础油门 + 姿态PID控制量，分配到4个电机
+            // 注：PID输出的正负对应电机加速/减速，实现姿态调整
+            MOTOR1 += + pidRateX.out - pidRateY.out - pidRateZ.out;
+            MOTOR2 += + pidRateX.out + pidRateY.out + pidRateZ.out;
+            MOTOR3 += - pidRateX.out + pidRateY.out - pidRateZ.out;
+            MOTOR4 += - pidRateX.out - pidRateY.out + pidRateZ.out;
+            }
+            break;
+
+        case EXIT_255: // 状态4：退出/紧急停止
+            // 所有电机输出置0，停转
+            MOTOR1 = MOTOR2 = MOTOR3 = MOTOR4 = 0;  
+            // 回到等待解锁状态
+            status = WAITING_1;	
+            break;
+
+        default: // 异常状态：强制停电机
+            break;
+    }
+
+    // ====================== PWM输出适配（根据飞控类型） ======================
+    #if (FLY_TYPE == 1 || FLY_TYPE == 2)
+    // 类型1/2：PWM范围0~1000（直接输出）
+    PWM0 = LIMIT(MOTOR1,0,1000);  // 电机1 PWM赋值（限位防止超范围）
+    PWM1 = LIMIT(MOTOR2,0,1000);  // 电机2
+    PWM2 = LIMIT(MOTOR3,0,1000);  // 电机3
+    PWM3 = LIMIT(MOTOR4,0,1000);  // 电机4
+	
+    #elif (FLY_TYPE >= 3)
+    // 类型3+：PWM范围1000~2000（航模标准PWM）
+    PWM0 = 1000 + LIMIT(MOTOR1,0,1000);  
+    PWM1 = 1000 + LIMIT(MOTOR2,0,1000);  
+    PWM2 = 1000 + LIMIT(MOTOR3,0,1000);  
+    PWM3 = 1000 + LIMIT(MOTOR4,0,1000);  
+	
+    #else
+    // 未定义飞控类型，编译报错提醒
+    #error Please define FLY_TYPE!
+    #endif
+} 
 

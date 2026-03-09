@@ -76,14 +76,17 @@ void Duty_2ms(void)
 {
 	time[0] = GetSysTime_us();
 	Mpu6050GetOffset();				          //读取陀螺仪数据
-
+	FlightPidControl(0.002f);     /// 姿态控制
+	MotorControl();               //电机控制
 
 	time[0] = GetSysTime_us() - time[0];
 }
 
 void Duty_4ms(void)
 {
+	time[1] = GetSysTime_us();
 
+	time[1] = GetSysTime_us() - time[1];
 }
 
 void Duty_6ms(void)
