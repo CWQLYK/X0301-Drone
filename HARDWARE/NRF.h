@@ -56,10 +56,10 @@
 #define FIFO_STATUS     0x17  //FIFO状态寄存器;bit0,RX FIFO寄存器空标志;bit1,RX FIFO满标志;bit2,3,保留
                               //bit4,TX FIFO空标志;bit5,TX FIFO满标志;bit6,1,循环发送上一数据包.0,不循环;
 /**********************************************************************************************************/
-#define MODEL_RX				1			
-#define MODEL_TX				2			
-#define MODEL_RX2				3			
-#define MODEL_TX2				4			
+#define MODEL_RX				1			//????
+#define MODEL_TX				2			//????
+#define MODEL_RX2				3			//????2,??????
+#define MODEL_TX2				4			//????2,??????
 
 //NRF24L01 驱动函数 
 void NRF24L01_Configuration(void);                                //NRF24l01初始化

@@ -1,12 +1,18 @@
-//	作者：咸
-//	电话:18878881386
-//	邮箱:3078510877@qq.com
-//	日期：2026.3.8
-//	版本：1.0
-//NRF24L01 2.4G远程通讯模块
-
-#include "ALL_DEFINE.h"
+//========================================================================
+//	开发者：小杨
+//	联系方式:13728698082 / 1042763631@qq.com
+//	日期：2018.05.17
+//	版本：V1.0
+//	说明：STM32F103驱动NRF24L01无线模块底层代码
+//	      仅用于学习交流，禁止商用
+//========================================================================
+#include "ALL_DATA.h"
+#include "nrf24l01.h"
+#include "SPI.h"
 #include <string.h>
+#include "LED.h"
+#include "ANO_DT.h"
+#include "sys.h"
 
 // 状态定义重定义（避免与其他库冲突）
 #undef SUCCESS
@@ -23,7 +29,6 @@
 #define RX_DR			6		// 接收完成中断位（STATUS寄存器bit6）
 #define TX_DS			5		// 发送完成中断位（STATUS寄存器bit5）
 #define MAX_RT			4		// 最大重传中断位（STATUS寄存器bit4）
-
 
 // 全局变量定义
 u8 MPU_Err=1,NRF_Err=1,SPL_Err=1;    // 模块错误标志（1=错误，0=正常）
@@ -77,15 +82,38 @@ void NRF24L01_Configuration(void)
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;       // 上拉输入
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 	GPIO_Init(NRF_IRQ_GP, &GPIO_InitStructure);
-
-    // 初始化SPI总线（NRF24L01使用SPI通信）
-    SPI_Config();  
-
-    // 进入待机模式：CE低、CSN高
-    Clr_NRF24L01_CE
-    Set_NRF24L01_CSN;   
+	
+	// 初始化SPI总线（NRF24L01使用SPI通信）
+	SPI_Config();                                
+	// 进入待机模式：CE低、CSN高
+	Clr_NRF24L01_CE; 	                               
+	Set_NRF24L01_CSN;                                   
 }
 
+/**
+ * @brief  检测NRF24L01是否存在（通过读写TX_ADDR寄存器校验）
+ * @param  无
+ * @retval 0: 存在（匹配）；1: 不存在（不匹配）
+ */
+u8 NRF24L01_Check(void)
+{
+	u8 buf[5]={0XA5,0XA5,0XA5,0XA5,0XA5};  // 测试数据
+	u8 buf1[5];                             // 读取缓冲区
+	u8 i;   	 
+	
+	// 写入5字节测试地址到TX_ADDR寄存器
+    //  TX_ADDR 是 NRF24L01 芯片的发射地址寄存器
+	NRF24L01_Write_Buf(SPI_WRITE_REG + TX_ADDR, buf, 5);	
+	// 读取TX_ADDR寄存器内容
+	NRF24L01_Read_Buf(TX_ADDR, buf1, 5);             
+	// 校验读取的数据是否与写入的一致
+	for(i=0;i<5;i++)
+	{
+		if(buf1[i]!=0XA5) break;					   
+	}
+	if(i!=5) return FAILED;  // 不一致，NRF24L01未正常连接
+	return SUCCESS;		    // 一致，NRF24L01存在
+}	 	 
 
 /**
  * @brief  通过SPI写单个寄存器
@@ -129,14 +157,14 @@ u8 NRF24L01_Read_Reg(u8 regaddr)
  */
 u8 NRF24L01_Read_Buf(u8 regaddr,u8 *pBuf,u8 datalen)
 {
-	u8 status,i;	       
+	u8 status,u8_ctr;	       
   	
   	Clr_NRF24L01_CSN;                     // 拉低CSN，使能SPI通信
   	status = SPI_RW(regaddr);             // 发送寄存器地址，获取状态值   	   
   	// 循环读取指定长度的数据
-	for(i = 0; i < datalen; i ++)
+	for(u8_ctr=0;u8_ctr<datalen;u8_ctr++)
 	{
-		pBuf[i] = SPI_RW(0XFF);           // 读取1字节数据
+		pBuf[u8_ctr] = SPI_RW(0XFF);      // 读取1字节数据
 	}
   	Set_NRF24L01_CSN;                     // 拉高CSN，关闭SPI通信
   	return status;                        // 返回状态寄存器值
@@ -151,19 +179,18 @@ u8 NRF24L01_Read_Buf(u8 regaddr,u8 *pBuf,u8 datalen)
  */
 u8 NRF24L01_Write_Buf(u8 regaddr, u8 *pBuf, u8 datalen)
 {
-	u8 status,i;	    
+	u8 status,u8_ctr;	    
 	
 	Clr_NRF24L01_CSN;                                    // 拉低CSN，使能SPI通信
   	status = SPI_RW(regaddr);                            // 发送寄存器地址，获取状态值
   	// 循环写入指定长度的数据
-	for(i = 0; i < datalen; i++)
+	for(u8_ctr=0; u8_ctr<datalen; u8_ctr++)
 	{
-		SPI_RW(pBuf[i]);
+		SPI_RW(*pBuf++); 
 	}
   	Set_NRF24L01_CSN;                                    // 拉高CSN，关闭SPI通信
   	return status;                                       // 返回状态寄存器值
-}	
-
+}				   
 
 /**
  * @brief  通过NRF24L01发送一个数据包
@@ -241,9 +268,8 @@ void RX_Mode(void)
     // 配置寄存器：上电、开启CRC（16位）、接收模式、所有中断使能
   	NRF24L01_Write_Reg(SPI_WRITE_REG+NCONFIG, 0x0f); 
     // 拉高CE，进入接收模式（等待数据）
-  	Set_NRF24L01_CE;  
-}
-
+  	Set_NRF24L01_CE;                                
+}			
 
 /**
  * @brief  将NRF24L01设置为发送模式
@@ -271,8 +297,7 @@ void TX_Mode(void)
   	NRF24L01_Write_Reg(SPI_WRITE_REG+NCONFIG,0x0e);    
     // 拉高CE（保持10us以上），启动发送
 	Set_NRF24L01_CE;                                  
-}		
-
+}	
 
 /**
  * @brief  ANO飞控专用：AP模式发送数据包（自定义长度）
@@ -287,35 +312,162 @@ void ANO_NRF_TxPacket_AP(uint8_t * tx_buf, uint8_t len)
 	Set_NRF24L01_CE;                        // 启动发送
 }
 
+/**
+ * @brief  ANO飞控专用：初始化NRF24L01（指定工作模式和通道）
+ * @param  model: 工作模式（1=RX,2=TX,3=RX2,4=TX2）
+ * @param  ch: RF通信通道（0~127）
+ * @retval 无
+ */
+void ANO_NRF_Init(u8 model, u8 ch)
+{
+	Clr_NRF24L01_CE;  // 待机模式
+	
+	// 初始化公共参数
+	NRF24L01_Write_Buf(SPI_WRITE_REG+RX_ADDR_P0,(u8*)RX_ADDRESS,RX_ADR_WIDTH);	// 写RX地址
+	NRF24L01_Write_Buf(SPI_WRITE_REG+TX_ADDR,(u8*)TX_ADDRESS,TX_ADR_WIDTH); 	// 写TX地址  
+	NRF24L01_Write_Reg(SPI_WRITE_REG+EN_AA,0x01); 	// 使能通道0自动应答 
+	NRF24L01_Write_Reg(SPI_WRITE_REG+EN_RXADDR,0x01);	// 使能通道0接收地址 
+	NRF24L01_Write_Reg(SPI_WRITE_REG+SETUP_RETR,0x1a);	// 自动重传：500us延时，10次重传 
+	NRF24L01_Write_Reg(SPI_WRITE_REG+RF_CH,ch);			// 设置RF通道
+	NRF24L01_Write_Reg(SPI_WRITE_REG+RF_SETUP,0x0f); 	// RF配置：0db、2Mbps、高功率
+
+	// 根据模式配置差异化参数
+	if(model == 1)	// 普通接收模式
+	{
+		// 设置通道0数据长度
+		NRF24L01_Write_Reg(SPI_WRITE_REG+RX_PW_P0,RX_PLOAD_WIDTH);							
+		// 配置：接收模式、16位CRC、所有中断使能
+		NRF24L01_Write_Reg(SPI_WRITE_REG + NCONFIG, 0x0f);   			
+	}
+	else if(model == 2)	// 普通发送模式
+	{
+		// 设置通道0数据长度
+		NRF24L01_Write_Reg(SPI_WRITE_REG+RX_PW_P0,RX_PLOAD_WIDTH);							
+		// 配置：发送模式、16位CRC、所有中断使能
+		NRF24L01_Write_Reg(SPI_WRITE_REG + NCONFIG, 0x0e);   			
+	}
+	else if(model == 3)	// 扩展接收模式2
+	{
+		NRF24L01_Write_Reg(FLUSH_TX,0xff);  // 清空TX FIFO
+		NRF24L01_Write_Reg(FLUSH_RX,0xff);  // 清空RX FIFO
+		// 配置：接收模式、16位CRC、所有中断使能
+		NRF24L01_Write_Reg(SPI_WRITE_REG + NCONFIG, 0x0f);   			
+		// 自定义扩展配置（ANO飞控专用）
+		SPI_RW(0x50);
+		SPI_RW(0x73);
+		NRF24L01_Write_Reg(SPI_WRITE_REG+0x1c,0x01);
+		NRF24L01_Write_Reg(SPI_WRITE_REG+0x1d,0x06);
+	}
+	else	// 扩展发送模式2
+	{
+		// 配置：发送模式、16位CRC、所有中断使能
+		NRF24L01_Write_Reg(SPI_WRITE_REG + NCONFIG, 0x0e);   			
+		NRF24L01_Write_Reg(FLUSH_TX,0xff);  // 清空TX FIFO
+		NRF24L01_Write_Reg(FLUSH_RX,0xff);  // 清空RX FIFO
+		// 自定义扩展配置（ANO飞控专用）
+		SPI_RW(0x50);
+		SPI_RW(0x73);
+		NRF24L01_Write_Reg(SPI_WRITE_REG+0x1c,0x01);
+		NRF24L01_Write_Reg(SPI_WRITE_REG+0x1d,0x06);
+	}
+	Set_NRF24L01_CE;  // 启动工作模式
+}
 
 /**
- * @brief  检测NRF24L01是否存在（通过读写TX_ADDR寄存器校验）
+ * @brief  NRF24L01总初始化入口（硬件+功能初始化）
  * @param  无
- * @retval 0: 存在（匹配）；1: 不存在（不匹配）
+ * @retval 无
  */
-u8 NRF24L01_Check(void)
+void NRF24L01_init(void)
 {
-	u8 buf[5]={0XA5,0XA5,0XA5,0XA5,0XA5};  // 测试数据
-	u8 buf1[5];                             // 读取缓冲区
-	u8 i;   	 
+	// 初始化硬件IO
+	NRF24L01_Configuration();
 	
-	// 写入5字节测试地址到TX_ADDR寄存器
-    //  TX_ADDR 是 NRF24L01 芯片的发射地址寄存器
-	NRF24L01_Write_Buf(SPI_WRITE_REG + TX_ADDR, buf, 5);	
-	// 读取TX_ADDR寄存器内容
-	NRF24L01_Read_Buf(SPI_READ_REG + TX_ADDR, buf1, 5);             
-	// 校验读取的数据是否与写入的一致
-	for(i=0;i<5;i++)
+	// LED状态指示（前灯亮，后灯灭）
+	bLED_H();	 	// 前左灯亮
+	aLED_H();		// 前右灯亮
+	fLED_L();		// 后左灯灭
+	hLED_L();		// 后右灯灭
+	
+	// 循环检测NRF24L01，直到初始化成功
+	do
+	{ 
+		GetLockCode();  // 获取硬件锁码（ANO飞控专用）
+		// 根据CPU ID取模设置通信通道（避免同频干扰）
+		_CH = ST_CpuID % 0x7E;      
+		ANO_NRF_Init(MODEL_RX2,0);  // 初始化为扩展接收模式2
+		NRF_Err = 1;                // 标记NRF错误
+	}while(NRF24L01_Check() == FAILED);  // 检测到NRF存在则退出循环
+	NRF_Err = 0;  // 标记NRF正常
+}
+
+/**
+ * @brief  ANO飞控专用：检测NRF24L01事件（接收/发送/重传）
+ * @param  无
+ * @retval 无
+ */
+void ANO_NRF_Check_Event(void)
+{
+	// 读取状态寄存器（获取中断事件）
+	u8 sta = NRF24L01_Read_Reg(SPI_READ_REG + STATUS);   
+	
+	// 1. 检测接收完成事件
+	if(sta & (1<<RX_DR))										
 	{
-		if(buf1[i]!=0XA5) break;					   
+		// 读取接收数据长度
+		u8 rx_len = NRF24L01_Read_Reg(R_RX_PL_WID);       
+		if(rx_len < 33)  // 数据长度合法（1~32字节）
+		{
+			// 读取接收数据到缓冲区
+			NRF24L01_Read_Buf(RD_RX_PLOAD,NRF24L01_2_RXDATA,rx_len); 
+			Nrf_Erro = 0;  // 清零错误计数
+		}
+		else  // 数据长度非法，清空FIFO
+		{
+			NRF24L01_Write_Reg(FLUSH_RX,0xff);
+		}
 	}
-	if(i!=5) return FAILED;  // 不一致，NRF24L01未正常连接
-	return SUCCESS;		    // 一致，NRF24L01存在
-}	 	
+	
+	// 2. 检测发送完成事件
+	if(sta & (1<<TX_DS))
+	{
+		// 可添加发送完成后的处理逻辑
+	}
+	
+	// 3. 检测最大重传事件
+	if(sta & (1<<MAX_RT))
+	{
+		if(sta & 0x01)	// TX FIFO满
+		{
+			NRF24L01_Write_Reg(FLUSH_TX,0xff);  // 清空TX FIFO
+		}
+	}
+	
+	// 清除所有中断标志（写1清除）
+	NRF24L01_Write_Reg(SPI_WRITE_REG + STATUS, sta);
+}
 
-
-
-
-
-
-
+/**
+ * @brief  1KHz周期检测NRF24L01连接状态
+ * @param  无
+ * @retval 1: 已连接；0: 断开连接
+ */
+u8 NRF_Connect(void)
+{
+	static u8 Connect_flag;  // 连接状态标志（静态变量）
+	
+	Nrf_Erro ++;  // 超时计数递增
+	if(Nrf_Erro == 1)  // 有新数据接收（超时计数重置）
+	{
+		// 解析2.4G接收数据（ANO飞控协议）
+		ANO_DT_Data_Receive_Anl(NRF24L01_2_RXDATA,NRF24L01_2_RXDATA[3]+5);
+		NRF_SSI_CNT++;  // 通信成功计数
+		Connect_flag = 1;  // 标记已连接
+	}
+	if(Nrf_Erro >= 500)  // 500ms未接收到数据（断开连接）
+	{
+		Nrf_Erro = 1;    // 重置超时计数
+		Connect_flag = 0;// 标记断开连接
+	}
+	return Connect_flag;  // 返回当前连接状态
+}

@@ -42,6 +42,12 @@ PidObject Flow_SpeedPid_y;
 
 _st_IMU IMU;
 
+//获取CPU的ID
+void GetLockCode(void)
+{
+	ST_CpuID = *(vu32*)(0x1ffff7e8);//低字节芯片ID用来做通讯对频通道
+}
+
 void ALL_Init(void)                         //系统初始化
 {
     I2C_SoftWare_Init();
