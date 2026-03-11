@@ -1,6 +1,20 @@
 #ifndef __I2C_H
 #define __I2C_H
 
+#include "ALL_DEFINE.h"
+
+#define CLI()      __set_PRIMASK(1)  
+#define SEI()      __set_PRIMASK(0)
+
+#define BYTE0(dwTemp)       (*(char *)(&dwTemp))
+#define BYTE1(dwTemp)       (*((char *)(&dwTemp) + 1))
+#define BYTE2(dwTemp)       (*((char *)(&dwTemp) + 2))
+#define BYTE3(dwTemp)       (*((char *)(&dwTemp) + 3))
+
+
+#define TRUE  0
+#define FALSE -1
+
 //引脚宏定义
 #define I2C_RCC       RCC_APB2Periph_GPIOB
 #define I2C_GPIO      GPIOB
@@ -132,5 +146,6 @@ int8_t I2C_Write_One_Byte(uint8_t addr, uint8_t reg, uint8_t data);
  * @retval SUCCESS-成功，FAILED-失败
  */
 int8_t I2C_Read_Bytes(uint8_t addr, uint8_t reg, uint8_t *data, uint8_t len);
+
 
 #endif

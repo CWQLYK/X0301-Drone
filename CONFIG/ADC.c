@@ -150,12 +150,12 @@ void Voltage_Check()//20HZ：建议20Hz频率调用（50ms一次）
 			if(cnt0>100)
 			{
 				cnt0 = 100;  // 计数上限，避免溢出
-				// 以下代码被注释：低压标志置位+警告LED开启
-//				if(LED_warn==0)
-//				{
-//					flag.low_power=1;
-//					LED_warn = 1;
-//				}
+				// 低压标志置位+警告LED开启
+				if(LED_warn==0)
+				{
+					flag.low_power=1;
+					LED_warn = 1;
+				}
 			}
 		}
 		/* 情况2：电压高于3750mv（正常电压） */
@@ -167,12 +167,12 @@ void Voltage_Check()//20HZ：建议20Hz频率调用（50ms一次）
 			if(cnt1>100)
 			{
 				cnt1 = 100;  // 计数上限
-				// 以下代码被注释：低压标志清零+警告LED关闭
-//				if(LED_warn==1)
-//				{
-//					flag.low_power=0;
-//					LED_warn = 0;
-//				}
+				// 低压标志清零+警告LED关闭
+				if(LED_warn==1)
+				{
+					flag.low_power=0;
+					LED_warn = 0;
+				}
 			}
 		}
 		/* 情况3：电压在3700~3750mv之间（过渡区），清零计数 */

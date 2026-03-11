@@ -1,7 +1,11 @@
 #ifndef __ALL_DEFINE_H
 #define __ALL_DEFINE_H
+#include <stdio.h>
 #include "stm32f10x.h"
+#include "system_stm32f10x.h"
 #include "USART1.h"
+#include "USART2.h"
+#include "USART3.h"
 #include "LED.h"
 #include "ALL_DATA.h"
 #include "INIT.h"
@@ -21,6 +25,12 @@
 #include "Control.h"
 #include "Attitude_Process.h"
 #include "SPI.h"
+#include "ANO_Data_Transfer.h"
+#include "ANO_DT.h"
+#include "remote.h"
+#include "WIFI_UFO.h"
+#include "high_process.h"
+
 
 #undef SUCCESS
 #define SUCCESS 0

@@ -640,6 +640,26 @@
               <FileType>1</FileType>
               <FilePath>.\CONFIG\SPI.c</FilePath>
             </File>
+            <File>
+              <FileName>TIM.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\CONFIG\TIM.c</FilePath>
+            </File>
+            <File>
+              <FileName>USART2.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\CONFIG\USART2.c</FilePath>
+            </File>
+            <File>
+              <FileName>USART3.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\CONFIG\USART3.c</FilePath>
+            </File>
+            <File>
+              <FileName>GPIO.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\CONFIG\GPIO.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -694,6 +714,31 @@
               <FileName>Control.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\HAL\Control.h</FilePath>
+            </File>
+            <File>
+              <FileName>ANO_Data_Transfer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\HAL\ANO_Data_Transfer.c</FilePath>
+            </File>
+            <File>
+              <FileName>ANO_DT.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\HAL\ANO_DT.c</FilePath>
+            </File>
+            <File>
+              <FileName>high_process.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\HAL\high_process.c</FilePath>
+            </File>
+            <File>
+              <FileName>remote.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\HAL\remote.c</FilePath>
+            </File>
+            <File>
+              <FileName>WIFI_UFO.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\HAL\WIFI_UFO.c</FilePath>
             </File>
           </Files>
         </Group>

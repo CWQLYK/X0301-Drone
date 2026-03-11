@@ -8,11 +8,16 @@
 #include "ALL_DEFINE.h"
 #include "stm32f10x_gpio.h"
 
+#undef SUCCESS
+#define SUCCESS 0
+#undef FAILED
+#define FAILED  1
+
 // 400kHz I2C 延时
-void I2C_Delay(void)
-{
-    volatile uint16_t i = 60;
-    while(i--);
+#define I2C_Delay()  {\
+    volatile unsigned char i = 1;\
+    while (i)\
+        i--;\
 }
 
 //软件I2C初始化
@@ -45,7 +50,10 @@ static uint8_t I2C_Start(void)
     
     SDA_L;
     I2C_Delay();
-    
+    if(SDA_Read)
+    {
+        return FAILED;
+    }
     SCL_L;   // 起始信号必须拉低SCL
     I2C_Delay();
     
@@ -59,7 +67,7 @@ static void I2C_Stop(void)
     I2C_Delay();
     SDA_L;
     I2C_Delay();
-    
+    I2C_Delay();
     SCL_H;
     I2C_Delay();
     SDA_H;
@@ -80,6 +88,9 @@ static void I2C_SendAck(uint8_t ack)
     I2C_Delay();
     SCL_H;
     I2C_Delay();
+    I2C_Delay();
+    I2C_Delay();
+    I2C_Delay();
     SCL_L;
     I2C_Delay();
 }
@@ -93,18 +104,15 @@ static uint8_t I2C_WaitAck(void)
     I2C_Delay();
     SDA_H;
     I2C_Delay();
-    
     SCL_H;
     I2C_Delay();
+    I2C_Delay();
+    I2C_Delay();
     
-    while(SDA_Read)
+    if(SDA_Read)
     {
-        retry--;
-        if(retry == 0)
-        {
-            SCL_L;
-            return FAILED;
-        }
+        SCL_L;
+        return FAILED;
     }
     
     SCL_L;
@@ -127,6 +135,9 @@ static void I2C_SendByte(uint8_t byte)
         I2C_Delay();
         SCL_H;
         I2C_Delay();
+        I2C_Delay();
+        I2C_Delay();
+
     }
     SCL_L;
 }
@@ -143,7 +154,10 @@ static uint8_t I2C_ReadByte(void)
         
         SCL_L;
         I2C_Delay();
+        I2C_Delay();
         SCL_H;
+        I2C_Delay();
+        I2C_Delay();
         I2C_Delay();
         
         if(SDA_Read)
@@ -257,4 +271,5 @@ int8_t I2C_Read_Bytes(uint8_t addr,uint8_t reg,uint8_t *data,uint8_t len)
     I2C_Stop();
     return SUCCESS;
 }
+
 
