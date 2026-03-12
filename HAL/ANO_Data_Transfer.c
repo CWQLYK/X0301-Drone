@@ -1,31 +1,31 @@
-//	ä½œè€…ï¼šå’¸
-//	ç”µè¯:18878881386
-//	é‚®ç®±:3078510877@qq.com
-//	æ—¥æœŸï¼š2026.3.10
-//	ç‰ˆæœ¬ï¼š1.0
-//  ANO æ•°æ®ä¼ è¾“åè®®å®ç°
+//	×÷Õß£ºÏÌ
+//	µç»°:18878881386
+//	ÓÊÏä:3078510877@qq.com
+//	ÈÕÆÚ£º2026.3.10
+//	°æ±¾£º1.0
+//  ANO Êı¾İ´«ÊäĞ­ÒéÊµÏÖ
 #include "ALL_DEFINE.h"
 #include <string.h>
 
 
-dt_flag_t f;					//éœ€è¦å‘é€æ•°æ®çš„æ ‡å¿—
-u8 data_to_send[50];			//å‘é€æ•°æ®ç¼“å­˜
+dt_flag_t f;					//ĞèÒª·¢ËÍÊı¾İµÄ±êÖ¾
+u8 data_to_send[50];			//·¢ËÍÊı¾İ»º´æ
 
 u8 ult_ok,Locat_Err,Flow_Err;
 
 
-//Send_Dataå‡½æ•°æ˜¯åè®®ä¸­æ‰€æœ‰å‘é€æ•°æ®åŠŸèƒ½ä½¿ç”¨åˆ°çš„å‘é€å‡½æ•°
-//ç§»æ¤æ—¶ï¼Œç”¨æˆ·åº”æ ¹æ®è‡ªèº«åº”ç”¨çš„æƒ…å†µï¼Œæ ¹æ®ä½¿ç”¨çš„é€šä¿¡æ–¹å¼ï¼Œå®ç°æ­¤å‡½æ•°
+//Send_Dataº¯ÊıÊÇĞ­ÒéÖĞËùÓĞ·¢ËÍÊı¾İ¹¦ÄÜÊ¹ÓÃµ½µÄ·¢ËÍº¯Êı
+//ÒÆÖ²Ê±£¬ÓÃ»§Ó¦¸ù¾İ×ÔÉíÓ¦ÓÃµÄÇé¿ö£¬¸ù¾İÊ¹ÓÃµÄÍ¨ĞÅ·½Ê½£¬ÊµÏÖ´Ëº¯Êı
 
 void ANO_DT_Send_Data(u8 *dataToSend , u8 length)
 {
 //	switch(flag.NS)
 //	{
-//		case 1://å·²è¿æ¥é¥æ§å™¨
+//		case 1://ÒÑÁ¬½ÓÒ£¿ØÆ÷
 			ANO_NRF_TxPacket_AP(dataToSend,length);
 //		break;
 //		
-//		case 3://å·²è¿æ¥è“ç‰™æ¨¡å—
+//		case 3://ÒÑÁ¬½ÓÀ¶ÑÀÄ£¿é
 ////			ANO_UART3_Put_Buf(dataToSend,length);
 //		break;
 //		
@@ -35,18 +35,18 @@ void ANO_DT_Send_Data(u8 *dataToSend , u8 length)
 //	Usb_Hid_Send();
 }
 ///////////////////////////////////////////////////////////////////////////////////////
-////Data_Exchangeå‡½æ•°å¤„ç†å„ç§æ•°æ®å‘é€è¯·æ±‚ï¼Œæ¯”å¦‚æƒ³å®ç°æ¯6mså‘é€ä¸€æ¬¡ä¼ æ„Ÿå™¨æ•°æ®è‡³ä¸Šä½æœºï¼Œå³åœ¨æ­¤å‡½æ•°å†…å®ç°(cnt = 6/2 = 3)
-////æ­¤å‡½æ•°åº”ç”±ç”¨æˆ·æ¯2msè°ƒç”¨ä¸€æ¬¡
+////Data_Exchangeº¯Êı´¦Àí¸÷ÖÖÊı¾İ·¢ËÍÇëÇó£¬±ÈÈçÏëÊµÏÖÃ¿6ms·¢ËÍÒ»´Î´«¸ĞÆ÷Êı¾İÖÁÉÏÎ»»ú£¬¼´ÔÚ´Ëº¯ÊıÄÚÊµÏÖ(cnt = 6/2 = 3)
+////´Ëº¯ÊıÓ¦ÓÉÓÃ»§Ã¿2msµ÷ÓÃÒ»´Î
 u8 cnt = 0,yaw_lock = 0,Send_Check = 0;
 
-void ANO_DT_Data_Exchange(void)  //é£æœºå‘é€æ•°æ®åˆ°é¥æ§å™¨ä¸Šä¼ åˆ°ä¸Šä½æœº
+void ANO_DT_Data_Exchange(void)  //·É»ú·¢ËÍÊı¾İµ½Ò£¿ØÆ÷ÉÏ´«µ½ÉÏÎ»»ú
 {
 	if(Send_Check)
 	{
 		Send_Check = 0;
 		ANO_DT_Send_Data(data_to_send, 7);
 	}
-	else if(f.send_pid)  ///ä¸Šä½æœºè·å–PIDå‚æ•°
+	else if(f.send_pid)  ///ÉÏÎ»»ú»ñÈ¡PID²ÎÊı
 	{
 		cnt++;
 		switch(cnt)
@@ -71,7 +71,7 @@ void ANO_DT_Data_Exchange(void)  //é£æœºå‘é€æ•°æ®åˆ°é¥æ§å™¨ä¸Šä¼ åˆ°ä¸Šä½
 			break;
 		}				
 	}
-	else if(f.send_version)  //ä¸Šä½æœºè·å–é£æœºç‰ˆæœ¬
+	else if(f.send_version)  //ÉÏÎ»»ú»ñÈ¡·É»ú°æ±¾
 	{
 		f.send_version = 0;
 		//ANO_DT_Send_Version(1,ANO_Param.hardware,ANO_Param.software,510,0);
@@ -90,11 +90,11 @@ void ANO_DT_Data_Exchange(void)  //é£æœºå‘é€æ•°æ®åˆ°é¥æ§å™¨ä¸Šä¼ åˆ°ä¸Šä½
 			break;
 			case 3: ANO_DT_Send_RCData(Remote.thr,Remote.yaw,Remote.roll,Remote.pitch,Remote.AUX1,Remote.AUX2,Remote.AUX3,Remote.AUX4,NRF_SSI,Remote.AUX6);
 			break;
-			case 4:	ANO_DT_Send_Power(voltage/10,Remote.AUX5,1,NRF_SSI,test_flag,set_flag);//cnt = 0;  //ç”µå‹ ç”µæµ
+			case 4:	ANO_DT_Send_Power(voltage/10,Remote.AUX5,1,NRF_SSI,test_flag,set_flag);//cnt = 0;  //µçÑ¹ µçÁ÷
 			break;
-			case 5:	 ANO_DT_Send_Senser2(0,0); //cnt = 0; //é«˜åº¦æ•°æ®
+			case 5:	 ANO_DT_Send_Senser2(0,0); //cnt = 0; //¸ß¶ÈÊı¾İ
 			break;
-			case 6:	ANO_DT_Send_speed(0,0, 0);  cnt = 0;		//å…‰æµæ¨¡å—æ•°æ®					
+			case 6:	ANO_DT_Send_speed(0,0, 0);  cnt = 0;		//¹âÁ÷Ä£¿éÊı¾İ					
 			break;
 			 
 
@@ -103,9 +103,9 @@ void ANO_DT_Data_Exchange(void)  //é£æœºå‘é€æ•°æ®åˆ°é¥æ§å™¨ä¸Šä¼ åˆ°ä¸Šä½
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////
-////Data_Receive_Anlå‡½æ•°æ˜¯åè®®æ•°æ®è§£æå‡½æ•°ï¼Œå‡½æ•°å‚æ•°æ˜¯ç¬¦åˆåè®®æ ¼å¼çš„ä¸€ä¸ªæ•°æ®å¸§ï¼Œè¯¥å‡½æ•°ä¼šé¦–å…ˆå¯¹åè®®æ•°æ®è¿›è¡Œæ ¡éªŒ
-////æ ¡éªŒé€šè¿‡åå¯¹æ•°æ®è¿›è¡Œè§£æï¼Œå®ç°ç›¸åº”åŠŸèƒ½
-////æ­¤å‡½æ•°å¯ä»¥ä¸ç”¨ç”¨æˆ·è‡ªè¡Œè°ƒç”¨ï¼Œç”±å‡½æ•°Data_Receive_Prepareè‡ªåŠ¨è°ƒç”¨
+////Data_Receive_Anlº¯ÊıÊÇĞ­ÒéÊı¾İ½âÎöº¯Êı£¬º¯Êı²ÎÊıÊÇ·ûºÏĞ­Òé¸ñÊ½µÄÒ»¸öÊı¾İÖ¡£¬¸Ãº¯Êı»áÊ×ÏÈ¶ÔĞ­ÒéÊı¾İ½øĞĞĞ£Ñé
+////Ğ£ÑéÍ¨¹ıºó¶ÔÊı¾İ½øĞĞ½âÎö£¬ÊµÏÖÏàÓ¦¹¦ÄÜ
+////´Ëº¯Êı¿ÉÒÔ²»ÓÃÓÃ»§×ÔĞĞµ÷ÓÃ£¬ÓÉº¯ÊıData_Receive_Prepare×Ô¶¯µ÷ÓÃ
 
 extern u16 save_pid_en;
 
@@ -552,10 +552,9 @@ void Flag_Check(void)
 	if(!NRF_Err)		test_flag |= BIT2;
 	if(ult_ok)    	test_flag |= BIT3; 
 	if(!Locat_Err)  test_flag |= BIT4;
-	if(LED_warn==1)	test_flag |= BIT5;//ä½å‹
+	if(LED_warn==1)	test_flag |= BIT5;//µÍÑ¹
 	if(!Flow_Err)		test_flag |= BIT6;
 	
 }
 
 ///******************* (C) COPYRIGHT 2016 ANO TECH *****END OF FILE************/
-

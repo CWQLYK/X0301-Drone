@@ -8,7 +8,6 @@
 #include "ALL_DEFINE.h"
 #include "scheduler.h"
 #include "ANO_Data_Transfer.h"
-#include "WIFI_UFO.h"
 #include "ADC.h"
 
 // 全局调度变量定义
@@ -241,9 +240,7 @@ void Duty_1000ms()
     NRF_SSI = NRF_SSI_CNT;      // NRF信号强度
     NRF_SSI_CNT = 0;
     
-    // 读取并清零WiFi信号质量计数（预留）
-    WIFI_SSI = WIFI_SSI_CNT;    // WiFi信号强度
-    WIFI_SSI_CNT = 0;
+
     
     // 读取并清零定位模块信号质量计数（预留）
     Locat_SSI = Locat_SSI_CNT;  // 定位模块信号成功率

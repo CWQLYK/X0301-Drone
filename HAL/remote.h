@@ -8,7 +8,6 @@ extern u16 set_flag;    // 参数设置标志位（预留扩展）
 
 // 函数声明（遥控模块核心接口）
 extern void RC_Analy(void);    // 遥控数据解析与异常处理
-extern void Rc_Connect(void);  // 遥控连接优先级管理
 
 #endif
 

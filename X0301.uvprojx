@@ -735,11 +735,6 @@
               <FileType>1</FileType>
               <FilePath>.\HAL\remote.c</FilePath>
             </File>
-            <File>
-              <FileName>WIFI_UFO.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\HAL\WIFI_UFO.c</FilePath>
-            </File>
           </Files>
         </Group>
       </Groups>

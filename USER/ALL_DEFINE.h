@@ -28,7 +28,6 @@
 #include "ANO_Data_Transfer.h"
 #include "ANO_DT.h"
 #include "remote.h"
-#include "WIFI_UFO.h"
 #include "high_process.h"
 
 
