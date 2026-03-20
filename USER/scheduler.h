@@ -16,14 +16,15 @@ typedef struct
 	int16_t cnt_1000ms;
 }loop_t;
 
-void Main_Loop(void);			//任务调度
-void Loop_Check(void);			//时间计数器累加 + 执行校准
+// void Main_Loop(void);			//任务调度
+// void Loop_Check(void);			//时间计数器累加 + 执行校准
 void Duty_2ms(void);
 void Duty_4ms(void);
 void Duty_6ms(void);
 void Duty_10ms(void);
 void Duty_20ms(void);
 void Duty_50ms(void);
+void Duty_500ms(void);
 void Duty_1000ms(void);
 #endif
 

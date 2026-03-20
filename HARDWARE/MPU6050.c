@@ -29,10 +29,10 @@ uint8_t MPU6050_Init(void)
     uint8_t data = SUCCESS;     // 初始化状态标志
 
     // 初始化指示灯状态
-    bLED_L();	 	// 前左灯亮
-    aLED_L();		// 前右灯亮
-    fLED_H();		// 后左灯灭
-    hLED_H();		// 后右灯灭
+    bLED_L();	 	// 前左灯灭
+    aLED_L();		// 前右灯灭
+    fLED_H();		// 后左灯亮
+    hLED_H();		// 后右灯亮
 	
     // 循环初始化传感器参数（最多重试10次）
     do

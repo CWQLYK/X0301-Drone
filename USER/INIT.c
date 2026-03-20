@@ -80,7 +80,7 @@ void ALL_Init(void)
     LEDInit();                       // LED指示灯初始化（状态指示）
 	
     ANO_Uart1_Init(19200);           // 匿名串口1初始化（波特率19200，调参/数据上传）
-	
+	printf("ANO_Uart1_Init  \r\n");
     MPU6050_Init();                  // MPU6050传感器初始化（姿态检测核心）
 	
     // ADC初始化（电池电压检测/高度气压检测）

@@ -5,7 +5,7 @@
 // 版本:1.0
 //  无人机系统主函数（程序入口）
 #include "ALL_DEFINE.h"
-
+#include "user_freertos.h"
 /**
  * @brief  程序入口函数
  * @param  无
@@ -23,13 +23,13 @@ int main(void)
     ALL_Init();                                     // 系统总初始化（外设/传感器/PID等）
     IWDG_Init(4, 625);                              // 初始化独立看门狗：分频系数4，重装值625，喂狗周期1s
                                                     // 注：IWDG时钟为40kHz/4=10kHz，625/10kHz=0.0625s？实际需根据硬件确认
+    printf("System initialized successfully.\r\n"); // 初始化完成提示
+    user_freertos_start();                          // 启动FreeRTOS任务调度
 
-    // 主循环（程序核心执行体）
+
     while(1)
     {
-        Main_Loop();                                // 执行主控制循环（姿态解算/PID控制/遥控器处理等）
-
-        IWDG_Feed();                                // 喂独立看门狗（必须1s内执行，否则系统复位）
+        
     }
 }
 

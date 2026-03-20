@@ -47,9 +47,9 @@ void SysTick_IRQ(void)
 	
     //LED_1ms_DRV();                         // LED 1ms驱动（注释未启用）
 	
-    cnt++;
-    cnt %= 2;                                 // 每2ms执行一次
-    if(cnt) Loop_Check();                     // 调用任务巡检函数
+    // cnt++;
+    // cnt %= 2;                                 // 每2ms执行一次
+    // if(cnt) Loop_Check();                     // 调用任务巡检函数
 }  
 
 /**

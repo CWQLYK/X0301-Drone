@@ -24,6 +24,8 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f10x_it.h"
 #include "delay.h"
+#include "FreeRTOS.h"
+#include "task.h"
 
 /** @addtogroup STM32F10x_StdPeriph_Template
   * @{
@@ -106,9 +108,9 @@ void UsageFault_Handler(void)
   * @param  None
   * @retval None
   */
-void SVC_Handler(void)
-{
-}
+// void SVC_Handler(void)
+// {
+// }
 
 /**
   * @brief  This function handles Debug Monitor exception.
@@ -124,18 +126,25 @@ void DebugMon_Handler(void)
   * @param  None
   * @retval None
   */
-void PendSV_Handler(void)
-{
-}
+// void PendSV_Handler(void)
+// {
+// }
 
-/**
-  * @brief  This function handles SysTick Handler.
-  * @param  None
-  * @retval None
-  */
+// /**
+//   * @brief  This function handles SysTick Handler.
+//   * @param  None
+//   * @retval None
+//   */
 void SysTick_Handler(void)
 {
-  SysTick_IRQ();
+    // 1. 先执行FreeRTOS的Tick处理（核心，保证调度精准）
+    if(xTaskGetSchedulerState() != taskSCHEDULER_NOT_STARTED)
+    {
+        xPortSysTickHandler(); // 调用原生的FreeRTOS Tick处理
+    }
+    
+    // 2. 再执行你的SysTick_IRQ（极简逻辑，无风险）
+    SysTick_IRQ(); 
 }
 
 /******************************************************************************/

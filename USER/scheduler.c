@@ -16,101 +16,101 @@ u32 time[10], time_sum;       // 各任务执行时间统计数组/总耗时
 // 光流/定位模块信号质量计数与状态
 u8 Flow_SSI_CNT, Locat_SSI_CNT, Locat_SSI, Flow_SSI, Locat_Mode;
 
-/**
- * @brief  2ms周期任务计数器更新函数（由SysTick中断调用）
- * @param  无
- * @retval 无
- * @note   1. 递增各时间片计数器，实现多周期任务调度
- *         2. 检查标志位机制确保任务不重复执行
- *         3. err_flag用于监控任务执行异常
- */
-void Loop_Check()
-{
-    // 递增各周期计数器（基于2ms基准）
-    loop.cnt_2ms++;
-    loop.cnt_4ms++;
-    loop.cnt_6ms++;
-    loop.cnt_10ms++;
-    loop.cnt_20ms++;
-    loop.cnt_50ms++;
-    loop.cnt_1000ms++;
+// /**
+//  * @brief  2ms周期任务计数器更新函数（由SysTick中断调用）
+//  * @param  无
+//  * @retval 无
+//  * @note   1. 递增各时间片计数器，实现多周期任务调度
+//  *         2. 检查标志位机制确保任务不重复执行
+//  *         3. err_flag用于监控任务执行异常
+//  */
+// void Loop_Check()
+// {
+//     // 递增各周期计数器（基于2ms基准）
+//     loop.cnt_2ms++;
+//     loop.cnt_4ms++;
+//     loop.cnt_6ms++;
+//     loop.cnt_10ms++;
+//     loop.cnt_20ms++;
+//     loop.cnt_50ms++;
+//     loop.cnt_1000ms++;
 
-    // 任务执行标志位检查
-    if( loop.check_flag >= 1)
-    {
-        loop.err_flag ++;      // 2ms周期异常计数（任务执行超时）
-    }
-    else
-    {
-        loop.check_flag += 1;  // 在中断中设置为0，允许主循环执行任务
-    }
-}
+//     // 任务执行标志位检查
+//     if( loop.check_flag >= 1)
+//     {
+//         loop.err_flag ++;      // 2ms周期异常计数（任务执行超时）
+//     }
+//     else
+//     {
+//         loop.check_flag += 1;  // 在中断中设置为0，允许主循环执行任务
+//     }
+// }
 
-/**
- * @brief  主任务调度循环（在main函数while(1)中执行）
- * @param  无
- * @retval 无
- * @note   1. 基于计数器阈值触发不同周期的任务
- *         2. 每个周期任务执行后清零对应计数器
- *         3. 执行完成后清零检查标志位，等待下一个周期
- */
-void Main_Loop()
-{
-    // 检查标志位有效时执行任务调度
-    if( loop.check_flag >= 1 )
-    {
-        // 2ms周期任务（计数器≥1）
-        if( loop.cnt_2ms >= 1 )
-        {
-            loop.cnt_2ms = 0;
-            Duty_2ms();        // 执行2ms任务（核心控制任务）
-        }
+// /**
+//  * @brief  主任务调度循环（在main函数while(1)中执行）
+//  * @param  无
+//  * @retval 无
+//  * @note   1. 基于计数器阈值触发不同周期的任务
+//  *         2. 每个周期任务执行后清零对应计数器
+//  *         3. 执行完成后清零检查标志位，等待下一个周期
+//  */
+// void Main_Loop()
+// {
+//     // 检查标志位有效时执行任务调度
+//     if( loop.check_flag >= 1 )
+//     {
+//         // 2ms周期任务（计数器≥1）
+//         if( loop.cnt_2ms >= 1 )
+//         {
+//             loop.cnt_2ms = 0;
+//             Duty_2ms();        // 执行2ms任务（核心控制任务）
+//         }
         
-        // 4ms周期任务（计数器≥2，2*2ms）
-        if( loop.cnt_4ms >= 2 )
-        {
-            loop.cnt_4ms = 0;
-            Duty_4ms();        // 执行4ms任务（通信相关）
-        }
+//         // 4ms周期任务（计数器≥2，2*2ms）
+//         if( loop.cnt_4ms >= 2 )
+//         {
+//             loop.cnt_4ms = 0;
+//             Duty_4ms();        // 执行4ms任务（通信相关）
+//         }
         
-        // 6ms周期任务（计数器≥3，3*2ms）
-        if( loop.cnt_6ms >= 3 )
-        {
-            loop.cnt_6ms = 0;
-            Duty_6ms();        // 执行6ms任务（姿态解算）
-        }
+//         // 6ms周期任务（计数器≥3，3*2ms）
+//         if( loop.cnt_6ms >= 3 )
+//         {
+//             loop.cnt_6ms = 0;
+//             Duty_6ms();        // 执行6ms任务（姿态解算）
+//         }
         
-        // 10ms周期任务（计数器≥5，5*2ms）
-        if( loop.cnt_10ms >= 5 )
-        {
-            loop.cnt_10ms = 0;
-            Duty_10ms();       // 执行10ms任务（遥控器解析）
-        } 
+//         // 10ms周期任务（计数器≥5，5*2ms）
+//         if( loop.cnt_10ms >= 5 )
+//         {
+//             loop.cnt_10ms = 0;
+//             Duty_10ms();       // 执行10ms任务（遥控器解析）
+//         } 
         
-        // 20ms周期任务（计数器≥10，10*2ms）
-        if( loop.cnt_20ms >= 10 )
-        {
-            loop.cnt_20ms = 0;
-            Duty_20ms();       // 执行20ms任务（串口数据交互）
-        }
+//         // 20ms周期任务（计数器≥10，10*2ms）
+//         if( loop.cnt_20ms >= 10 )
+//         {
+//             loop.cnt_20ms = 0;
+//             Duty_20ms();       // 执行20ms任务（串口数据交互）
+//         }
         
-        // 50ms周期任务（计数器≥25，25*2ms）
-        if( loop.cnt_50ms >= 25 )
-        {
-            loop.cnt_50ms = 0;
-            Duty_50ms();       // 执行50ms任务（状态监控）
-        }
+//         // 50ms周期任务（计数器≥25，25*2ms）
+//         if( loop.cnt_50ms >= 25 )
+//         {
+//             loop.cnt_50ms = 0;
+//             Duty_50ms();       // 执行50ms任务（状态监控）
+//         }
         
-        // 1000ms周期任务（计数器≥500，500*2ms）
-        if( loop.cnt_1000ms >= 500)
-        {
-            loop.cnt_1000ms = 0;
-            Duty_1000ms();     // 执行1s任务（状态统计/故障检测）
-        }
+//         // 1000ms周期任务（计数器≥500，500*2ms）
+//         if( loop.cnt_1000ms >= 500)
+//         {
+//             loop.cnt_1000ms = 0;
+//             Duty_1000ms();     // 执行1s任务（状态统计/故障检测）
+//         }
         
-        loop.check_flag = 0;   // 清零检查标志位，等待下一个周期
-    }
-}
+//         loop.check_flag = 0;   // 清零检查标志位，等待下一个周期
+//     }
+// }
 
 /////////////////////////////////////////////////////////
 /**
@@ -128,6 +128,7 @@ void Duty_2ms()
     MPU6050GetData();           // 获取MPU6050传感器数据（加速度计+陀螺仪）
     FlightPidControl(0.002f);   // 飞行PID控制（周期0.002s）
     MotorControl();             // 电机PWM输出控制
+    IWDG_Feed();                                // 喂独立看门狗（必须1s内执行，否则系统复位）
     
     // printf("Duty_2ms\r\n");
     time[0] = GetSysTime_us() - time[0]; // 计算任务执行耗时
@@ -221,6 +222,18 @@ void Duty_50ms()
     
     // printf("Duty_50ms\r\n");
     time[5] = GetSysTime_us() - time[5]; // 计算任务执行耗时
+}
+
+//////////////////////////////////////////////////////////
+/**
+ * @brief  500ms周期任务（喂狗）
+ * @param  无
+ * @retval 无
+ * @note   喂狗
+ */
+void Duty_500ms()
+{
+    IWDG_Feed(); 
 }
 
 /////////////////////////////////////////////////////////////
