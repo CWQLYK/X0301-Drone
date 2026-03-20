@@ -154,12 +154,9 @@ void task_2ms(void *pvParameters)
     
     while(1)
     {
-        // ********** 核心任务执行区 **********
-        taskENTER_CRITICAL(); // 临界区保护全局变量
+        taskENTER_CRITICAL(); 
         Duty_2ms();        
         taskEXIT_CRITICAL();
-        // ********** 精准延时区 **********
-        // 绝对延时：保证任务每2ms执行一次，不受执行耗时影响
         vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(2));
     }
 }
