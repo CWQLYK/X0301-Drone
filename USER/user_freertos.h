@@ -12,7 +12,7 @@
 #define TASK_4MS_STACK_SIZE     256
 #define TASK_4MS_PRIORITY       9
 #define TASK_6MS_STACK_SIZE     256
-#define TASK_6MS_PRIORITY       8
+#define TASK_6MS_PRIORITY       11
 #define TASK_10MS_STACK_SIZE    256
 #define TASK_10MS_PRIORITY      7
 #define TASK_20MS_STACK_SIZE    256

@@ -154,9 +154,7 @@ void task_2ms(void *pvParameters)
     
     while(1)
     {
-        taskENTER_CRITICAL(); 
         Duty_2ms();        
-        taskEXIT_CRITICAL();
         vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(2));
     }
 }
@@ -167,9 +165,7 @@ void task_4ms(void *pvParameters)
     TickType_t xLastWakeTime = xTaskGetTickCount();
     while(1)
     {
-        taskENTER_CRITICAL();
         Duty_4ms();        
-        taskEXIT_CRITICAL();
         vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(4));
     }
 }
@@ -180,9 +176,7 @@ void task_6ms(void *pvParameters)
     TickType_t xLastWakeTime = xTaskGetTickCount();
     while(1)
     {
-        taskENTER_CRITICAL();
         Duty_6ms();        
-        taskEXIT_CRITICAL();
         vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(6));
     }
 }
@@ -193,9 +187,7 @@ void task_10ms(void *pvParameters)
     TickType_t xLastWakeTime = xTaskGetTickCount();
     while(1)
     {
-        taskENTER_CRITICAL();
         Duty_10ms();       
-        taskEXIT_CRITICAL();
         vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(10));
     }
 }
@@ -206,9 +198,7 @@ void task_20ms(void *pvParameters)
     TickType_t xLastWakeTime = xTaskGetTickCount();
     while(1)
     {
-        taskENTER_CRITICAL();
         Duty_20ms();       
-        taskEXIT_CRITICAL();
         vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(20));
     }
 }
@@ -219,9 +209,7 @@ void task_50ms(void *pvParameters)
     TickType_t xLastWakeTime = xTaskGetTickCount();
     while(1)
     {
-        taskENTER_CRITICAL();
         Duty_50ms();       
-        taskEXIT_CRITICAL();
         vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(50));
     }
 }
@@ -232,9 +220,7 @@ void task_500ms(void *pvParameters)
     TickType_t xLastWakeTime = xTaskGetTickCount();
     while(1)
     {
-        taskENTER_CRITICAL();
         Duty_500ms();       
-        taskEXIT_CRITICAL();
         vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(500));
     }
 }
@@ -245,9 +231,7 @@ void task_1000ms(void *pvParameters)
     TickType_t xLastWakeTime = xTaskGetTickCount();
     while(1)
     {
-        taskENTER_CRITICAL();
         Duty_1000ms();     
-        taskEXIT_CRITICAL();
         vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(1000));
     }
 }

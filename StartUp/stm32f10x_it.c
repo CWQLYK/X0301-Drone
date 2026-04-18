@@ -143,7 +143,7 @@ void SysTick_Handler(void)
         xPortSysTickHandler(); // 调用原生的FreeRTOS Tick处理
     }
     
-    // 2. 再执行你的SysTick_IRQ（极简逻辑，无风险）
+    // 2. 再执行SysTick_IRQ
     SysTick_IRQ(); 
 }
 

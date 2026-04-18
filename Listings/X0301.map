@@ -170,44 +170,28 @@ Section Cross References
     user_freertos.o(i.start_task) refers to user_freertos.o(i.task_500ms) for task_500ms
     user_freertos.o(i.start_task) refers to user_freertos.o(i.task_1000ms) for task_1000ms
     user_freertos.o(i.task_1000ms) refers to tasks.o(i.xTaskGetTickCount) for xTaskGetTickCount
-    user_freertos.o(i.task_1000ms) refers to port.o(i.vPortEnterCritical) for vPortEnterCritical
     user_freertos.o(i.task_1000ms) refers to scheduler.o(i.Duty_1000ms) for Duty_1000ms
-    user_freertos.o(i.task_1000ms) refers to port.o(i.vPortExitCritical) for vPortExitCritical
     user_freertos.o(i.task_1000ms) refers to tasks.o(i.xTaskDelayUntil) for xTaskDelayUntil
     user_freertos.o(i.task_10ms) refers to tasks.o(i.xTaskGetTickCount) for xTaskGetTickCount
-    user_freertos.o(i.task_10ms) refers to port.o(i.vPortEnterCritical) for vPortEnterCritical
     user_freertos.o(i.task_10ms) refers to scheduler.o(i.Duty_10ms) for Duty_10ms
-    user_freertos.o(i.task_10ms) refers to port.o(i.vPortExitCritical) for vPortExitCritical
     user_freertos.o(i.task_10ms) refers to tasks.o(i.xTaskDelayUntil) for xTaskDelayUntil
     user_freertos.o(i.task_20ms) refers to tasks.o(i.xTaskGetTickCount) for xTaskGetTickCount
-    user_freertos.o(i.task_20ms) refers to port.o(i.vPortEnterCritical) for vPortEnterCritical
     user_freertos.o(i.task_20ms) refers to scheduler.o(i.Duty_20ms) for Duty_20ms
-    user_freertos.o(i.task_20ms) refers to port.o(i.vPortExitCritical) for vPortExitCritical
     user_freertos.o(i.task_20ms) refers to tasks.o(i.xTaskDelayUntil) for xTaskDelayUntil
     user_freertos.o(i.task_2ms) refers to tasks.o(i.xTaskGetTickCount) for xTaskGetTickCount
-    user_freertos.o(i.task_2ms) refers to port.o(i.vPortEnterCritical) for vPortEnterCritical
     user_freertos.o(i.task_2ms) refers to scheduler.o(i.Duty_2ms) for Duty_2ms
-    user_freertos.o(i.task_2ms) refers to port.o(i.vPortExitCritical) for vPortExitCritical
     user_freertos.o(i.task_2ms) refers to tasks.o(i.xTaskDelayUntil) for xTaskDelayUntil
     user_freertos.o(i.task_4ms) refers to tasks.o(i.xTaskGetTickCount) for xTaskGetTickCount
-    user_freertos.o(i.task_4ms) refers to port.o(i.vPortEnterCritical) for vPortEnterCritical
     user_freertos.o(i.task_4ms) refers to scheduler.o(i.Duty_4ms) for Duty_4ms
-    user_freertos.o(i.task_4ms) refers to port.o(i.vPortExitCritical) for vPortExitCritical
     user_freertos.o(i.task_4ms) refers to tasks.o(i.xTaskDelayUntil) for xTaskDelayUntil
     user_freertos.o(i.task_500ms) refers to tasks.o(i.xTaskGetTickCount) for xTaskGetTickCount
-    user_freertos.o(i.task_500ms) refers to port.o(i.vPortEnterCritical) for vPortEnterCritical
     user_freertos.o(i.task_500ms) refers to scheduler.o(i.Duty_500ms) for Duty_500ms
-    user_freertos.o(i.task_500ms) refers to port.o(i.vPortExitCritical) for vPortExitCritical
     user_freertos.o(i.task_500ms) refers to tasks.o(i.xTaskDelayUntil) for xTaskDelayUntil
     user_freertos.o(i.task_50ms) refers to tasks.o(i.xTaskGetTickCount) for xTaskGetTickCount
-    user_freertos.o(i.task_50ms) refers to port.o(i.vPortEnterCritical) for vPortEnterCritical
     user_freertos.o(i.task_50ms) refers to scheduler.o(i.Duty_50ms) for Duty_50ms
-    user_freertos.o(i.task_50ms) refers to port.o(i.vPortExitCritical) for vPortExitCritical
     user_freertos.o(i.task_50ms) refers to tasks.o(i.xTaskDelayUntil) for xTaskDelayUntil
     user_freertos.o(i.task_6ms) refers to tasks.o(i.xTaskGetTickCount) for xTaskGetTickCount
-    user_freertos.o(i.task_6ms) refers to port.o(i.vPortEnterCritical) for vPortEnterCritical
     user_freertos.o(i.task_6ms) refers to scheduler.o(i.Duty_6ms) for Duty_6ms
-    user_freertos.o(i.task_6ms) refers to port.o(i.vPortExitCritical) for vPortExitCritical
     user_freertos.o(i.task_6ms) refers to tasks.o(i.xTaskDelayUntil) for xTaskDelayUntil
     user_freertos.o(i.user_freertos_start) refers to tasks.o(i.xTaskCreate) for xTaskCreate
     user_freertos.o(i.user_freertos_start) refers to printf1.o(i.__0printf$1) for __2printf
@@ -2379,41 +2363,41 @@ Image Symbol Table
     i.remote_unlock                          0x08006620   Section        0  remote.o(i.remote_unlock)
     i.sqrt                                   0x08006740   Section        0  sqrt.o(i.sqrt)
     i.start_task                             0x0800678c   Section        0  user_freertos.o(i.start_task)
-    i.task_1000ms                            0x08006b84   Section        0  user_freertos.o(i.task_1000ms)
-    i.task_10ms                              0x08006baa   Section        0  user_freertos.o(i.task_10ms)
-    i.task_20ms                              0x08006bce   Section        0  user_freertos.o(i.task_20ms)
-    i.task_2ms                               0x08006bf2   Section        0  user_freertos.o(i.task_2ms)
-    i.task_4ms                               0x08006c16   Section        0  user_freertos.o(i.task_4ms)
-    i.task_500ms                             0x08006c3a   Section        0  user_freertos.o(i.task_500ms)
-    i.task_50ms                              0x08006c60   Section        0  user_freertos.o(i.task_50ms)
-    i.task_6ms                               0x08006c84   Section        0  user_freertos.o(i.task_6ms)
-    i.user_freertos_start                    0x08006ca8   Section        0  user_freertos.o(i.user_freertos_start)
-    i.uxListRemove                           0x08006d04   Section        0  list.o(i.uxListRemove)
-    i.vListInitialise                        0x08006d2c   Section        0  list.o(i.vListInitialise)
-    i.vListInitialiseItem                    0x08006d46   Section        0  list.o(i.vListInitialiseItem)
-    i.vListInsert                            0x08006d4c   Section        0  list.o(i.vListInsert)
-    i.vListInsertEnd                         0x08006d80   Section        0  list.o(i.vListInsertEnd)
-    i.vPortEnterCritical                     0x08006d98   Section        0  port.o(i.vPortEnterCritical)
-    i.vPortExitCritical                      0x08006dbc   Section        0  port.o(i.vPortExitCritical)
-    i.vPortFree                              0x08006ddc   Section        0  heap_4.o(i.vPortFree)
-    i.vPortSetupTimerInterrupt               0x08006e28   Section        0  port.o(i.vPortSetupTimerInterrupt)
-    i.vTaskDelete                            0x08006e40   Section        0  tasks.o(i.vTaskDelete)
-    i.vTaskStartScheduler                    0x08006f14   Section        0  tasks.o(i.vTaskStartScheduler)
-    i.vTaskSuspendAll                        0x08006f80   Section        0  tasks.o(i.vTaskSuspendAll)
-    i.vTaskSwitchContext                     0x08006f90   Section        0  tasks.o(i.vTaskSwitchContext)
-    i.xPortStartScheduler                    0x08006ff0   Section        0  port.o(i.xPortStartScheduler)
-    i.xPortSysTickHandler                    0x08007024   Section        0  port.o(i.xPortSysTickHandler)
-    i.xTaskCreate                            0x08007058   Section        0  tasks.o(i.xTaskCreate)
-    i.xTaskDelayUntil                        0x080070c0   Section        0  tasks.o(i.xTaskDelayUntil)
-    i.xTaskGetSchedulerState                 0x08007134   Section        0  tasks.o(i.xTaskGetSchedulerState)
-    i.xTaskGetTickCount                      0x08007154   Section        0  tasks.o(i.xTaskGetTickCount)
-    i.xTaskIncrementTick                     0x08007160   Section        0  tasks.o(i.xTaskIncrementTick)
-    i.xTaskResumeAll                         0x080072f0   Section        0  tasks.o(i.xTaskResumeAll)
-    .constdata                               0x0800744c   Section       10  nrf24l01.o(.constdata)
-    .constdata                               0x08007458   Section       24  mymath.o(.constdata)
-    .constdata                               0x08007470   Section       80  asin.o(.constdata)
-    pS                                       0x08007470   Data          48  asin.o(.constdata)
-    qS                                       0x080074a0   Data          32  asin.o(.constdata)
+    i.task_1000ms                            0x08006b88   Section        0  user_freertos.o(i.task_1000ms)
+    i.task_10ms                              0x08006ba6   Section        0  user_freertos.o(i.task_10ms)
+    i.task_20ms                              0x08006bc2   Section        0  user_freertos.o(i.task_20ms)
+    i.task_2ms                               0x08006bde   Section        0  user_freertos.o(i.task_2ms)
+    i.task_4ms                               0x08006bfa   Section        0  user_freertos.o(i.task_4ms)
+    i.task_500ms                             0x08006c16   Section        0  user_freertos.o(i.task_500ms)
+    i.task_50ms                              0x08006c34   Section        0  user_freertos.o(i.task_50ms)
+    i.task_6ms                               0x08006c50   Section        0  user_freertos.o(i.task_6ms)
+    i.user_freertos_start                    0x08006c6c   Section        0  user_freertos.o(i.user_freertos_start)
+    i.uxListRemove                           0x08006cc8   Section        0  list.o(i.uxListRemove)
+    i.vListInitialise                        0x08006cf0   Section        0  list.o(i.vListInitialise)
+    i.vListInitialiseItem                    0x08006d0a   Section        0  list.o(i.vListInitialiseItem)
+    i.vListInsert                            0x08006d10   Section        0  list.o(i.vListInsert)
+    i.vListInsertEnd                         0x08006d44   Section        0  list.o(i.vListInsertEnd)
+    i.vPortEnterCritical                     0x08006d5c   Section        0  port.o(i.vPortEnterCritical)
+    i.vPortExitCritical                      0x08006d80   Section        0  port.o(i.vPortExitCritical)
+    i.vPortFree                              0x08006da0   Section        0  heap_4.o(i.vPortFree)
+    i.vPortSetupTimerInterrupt               0x08006dec   Section        0  port.o(i.vPortSetupTimerInterrupt)
+    i.vTaskDelete                            0x08006e04   Section        0  tasks.o(i.vTaskDelete)
+    i.vTaskStartScheduler                    0x08006ed8   Section        0  tasks.o(i.vTaskStartScheduler)
+    i.vTaskSuspendAll                        0x08006f44   Section        0  tasks.o(i.vTaskSuspendAll)
+    i.vTaskSwitchContext                     0x08006f54   Section        0  tasks.o(i.vTaskSwitchContext)
+    i.xPortStartScheduler                    0x08006fb4   Section        0  port.o(i.xPortStartScheduler)
+    i.xPortSysTickHandler                    0x08006fe8   Section        0  port.o(i.xPortSysTickHandler)
+    i.xTaskCreate                            0x0800701c   Section        0  tasks.o(i.xTaskCreate)
+    i.xTaskDelayUntil                        0x08007084   Section        0  tasks.o(i.xTaskDelayUntil)
+    i.xTaskGetSchedulerState                 0x080070f8   Section        0  tasks.o(i.xTaskGetSchedulerState)
+    i.xTaskGetTickCount                      0x08007118   Section        0  tasks.o(i.xTaskGetTickCount)
+    i.xTaskIncrementTick                     0x08007124   Section        0  tasks.o(i.xTaskIncrementTick)
+    i.xTaskResumeAll                         0x080072b4   Section        0  tasks.o(i.xTaskResumeAll)
+    .constdata                               0x08007410   Section       10  nrf24l01.o(.constdata)
+    .constdata                               0x0800741c   Section       24  mymath.o(.constdata)
+    .constdata                               0x08007438   Section       80  asin.o(.constdata)
+    pS                                       0x08007438   Data          48  asin.o(.constdata)
+    qS                                       0x08007468   Data          32  asin.o(.constdata)
     .data                                    0x20000000   Section       20  stm32f10x_rcc.o(.data)
     APBAHBPrescTable                         0x20000000   Data          16  stm32f10x_rcc.o(.data)
     ADCPrescTable                            0x20000010   Data           4  stm32f10x_rcc.o(.data)
@@ -2824,47 +2808,47 @@ Image Symbol Table
     pxPortInitialiseStack                    0x080065fd   Thumb Code    30  port.o(i.pxPortInitialiseStack)
     remote_unlock                            0x08006621   Thumb Code   264  remote.o(i.remote_unlock)
     sqrt                                     0x08006741   Thumb Code    76  sqrt.o(i.sqrt)
-    start_task                               0x0800678d   Thumb Code   336  user_freertos.o(i.start_task)
-    task_1000ms                              0x08006b85   Thumb Code    38  user_freertos.o(i.task_1000ms)
-    task_10ms                                0x08006bab   Thumb Code    36  user_freertos.o(i.task_10ms)
-    task_20ms                                0x08006bcf   Thumb Code    36  user_freertos.o(i.task_20ms)
-    task_2ms                                 0x08006bf3   Thumb Code    36  user_freertos.o(i.task_2ms)
-    task_4ms                                 0x08006c17   Thumb Code    36  user_freertos.o(i.task_4ms)
-    task_500ms                               0x08006c3b   Thumb Code    38  user_freertos.o(i.task_500ms)
-    task_50ms                                0x08006c61   Thumb Code    36  user_freertos.o(i.task_50ms)
-    task_6ms                                 0x08006c85   Thumb Code    36  user_freertos.o(i.task_6ms)
-    user_freertos_start                      0x08006ca9   Thumb Code    44  user_freertos.o(i.user_freertos_start)
-    uxListRemove                             0x08006d05   Thumb Code    40  list.o(i.uxListRemove)
-    vListInitialise                          0x08006d2d   Thumb Code    26  list.o(i.vListInitialise)
-    vListInitialiseItem                      0x08006d47   Thumb Code     6  list.o(i.vListInitialiseItem)
-    vListInsert                              0x08006d4d   Thumb Code    52  list.o(i.vListInsert)
-    vListInsertEnd                           0x08006d81   Thumb Code    24  list.o(i.vListInsertEnd)
-    vPortEnterCritical                       0x08006d99   Thumb Code    30  port.o(i.vPortEnterCritical)
-    vPortExitCritical                        0x08006dbd   Thumb Code    28  port.o(i.vPortExitCritical)
-    vPortFree                                0x08006ddd   Thumb Code    68  heap_4.o(i.vPortFree)
-    vPortSetupTimerInterrupt                 0x08006e29   Thumb Code    20  port.o(i.vPortSetupTimerInterrupt)
-    vTaskDelete                              0x08006e41   Thumb Code   174  tasks.o(i.vTaskDelete)
-    vTaskStartScheduler                      0x08006f15   Thumb Code    76  tasks.o(i.vTaskStartScheduler)
-    vTaskSuspendAll                          0x08006f81   Thumb Code    12  tasks.o(i.vTaskSuspendAll)
-    vTaskSwitchContext                       0x08006f91   Thumb Code    76  tasks.o(i.vTaskSwitchContext)
-    xPortStartScheduler                      0x08006ff1   Thumb Code    42  port.o(i.xPortStartScheduler)
-    xPortSysTickHandler                      0x08007025   Thumb Code    46  port.o(i.xPortSysTickHandler)
-    xTaskCreate                              0x08007059   Thumb Code   104  tasks.o(i.xTaskCreate)
-    xTaskDelayUntil                          0x080070c1   Thumb Code   108  tasks.o(i.xTaskDelayUntil)
-    xTaskGetSchedulerState                   0x08007135   Thumb Code    24  tasks.o(i.xTaskGetSchedulerState)
-    xTaskGetTickCount                        0x08007155   Thumb Code     6  tasks.o(i.xTaskGetTickCount)
-    xTaskIncrementTick                       0x08007161   Thumb Code   356  tasks.o(i.xTaskIncrementTick)
-    xTaskResumeAll                           0x080072f1   Thumb Code   310  tasks.o(i.xTaskResumeAll)
-    TX_ADDRESS                               0x0800744c   Data           5  nrf24l01.o(.constdata)
-    RX_ADDRESS                               0x08007451   Data           5  nrf24l01.o(.constdata)
-    M_PI                                     0x08007458   Data           4  mymath.o(.constdata)
-    RtA                                      0x0800745c   Data           4  mymath.o(.constdata)
-    AtR                                      0x08007460   Data           4  mymath.o(.constdata)
-    Gyro_G                                   0x08007464   Data           4  mymath.o(.constdata)
-    Gyro_Gr                                  0x08007468   Data           4  mymath.o(.constdata)
-    PI_2                                     0x0800746c   Data           4  mymath.o(.constdata)
-    Region$$Table$$Base                      0x080074c0   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x080074e0   Number         0  anon$$obj.o(Region$$Table)
+    start_task                               0x0800678d   Thumb Code   338  user_freertos.o(i.start_task)
+    task_1000ms                              0x08006b89   Thumb Code    30  user_freertos.o(i.task_1000ms)
+    task_10ms                                0x08006ba7   Thumb Code    28  user_freertos.o(i.task_10ms)
+    task_20ms                                0x08006bc3   Thumb Code    28  user_freertos.o(i.task_20ms)
+    task_2ms                                 0x08006bdf   Thumb Code    28  user_freertos.o(i.task_2ms)
+    task_4ms                                 0x08006bfb   Thumb Code    28  user_freertos.o(i.task_4ms)
+    task_500ms                               0x08006c17   Thumb Code    30  user_freertos.o(i.task_500ms)
+    task_50ms                                0x08006c35   Thumb Code    28  user_freertos.o(i.task_50ms)
+    task_6ms                                 0x08006c51   Thumb Code    28  user_freertos.o(i.task_6ms)
+    user_freertos_start                      0x08006c6d   Thumb Code    44  user_freertos.o(i.user_freertos_start)
+    uxListRemove                             0x08006cc9   Thumb Code    40  list.o(i.uxListRemove)
+    vListInitialise                          0x08006cf1   Thumb Code    26  list.o(i.vListInitialise)
+    vListInitialiseItem                      0x08006d0b   Thumb Code     6  list.o(i.vListInitialiseItem)
+    vListInsert                              0x08006d11   Thumb Code    52  list.o(i.vListInsert)
+    vListInsertEnd                           0x08006d45   Thumb Code    24  list.o(i.vListInsertEnd)
+    vPortEnterCritical                       0x08006d5d   Thumb Code    30  port.o(i.vPortEnterCritical)
+    vPortExitCritical                        0x08006d81   Thumb Code    28  port.o(i.vPortExitCritical)
+    vPortFree                                0x08006da1   Thumb Code    68  heap_4.o(i.vPortFree)
+    vPortSetupTimerInterrupt                 0x08006ded   Thumb Code    20  port.o(i.vPortSetupTimerInterrupt)
+    vTaskDelete                              0x08006e05   Thumb Code   174  tasks.o(i.vTaskDelete)
+    vTaskStartScheduler                      0x08006ed9   Thumb Code    76  tasks.o(i.vTaskStartScheduler)
+    vTaskSuspendAll                          0x08006f45   Thumb Code    12  tasks.o(i.vTaskSuspendAll)
+    vTaskSwitchContext                       0x08006f55   Thumb Code    76  tasks.o(i.vTaskSwitchContext)
+    xPortStartScheduler                      0x08006fb5   Thumb Code    42  port.o(i.xPortStartScheduler)
+    xPortSysTickHandler                      0x08006fe9   Thumb Code    46  port.o(i.xPortSysTickHandler)
+    xTaskCreate                              0x0800701d   Thumb Code   104  tasks.o(i.xTaskCreate)
+    xTaskDelayUntil                          0x08007085   Thumb Code   108  tasks.o(i.xTaskDelayUntil)
+    xTaskGetSchedulerState                   0x080070f9   Thumb Code    24  tasks.o(i.xTaskGetSchedulerState)
+    xTaskGetTickCount                        0x08007119   Thumb Code     6  tasks.o(i.xTaskGetTickCount)
+    xTaskIncrementTick                       0x08007125   Thumb Code   356  tasks.o(i.xTaskIncrementTick)
+    xTaskResumeAll                           0x080072b5   Thumb Code   310  tasks.o(i.xTaskResumeAll)
+    TX_ADDRESS                               0x08007410   Data           5  nrf24l01.o(.constdata)
+    RX_ADDRESS                               0x08007415   Data           5  nrf24l01.o(.constdata)
+    M_PI                                     0x0800741c   Data           4  mymath.o(.constdata)
+    RtA                                      0x08007420   Data           4  mymath.o(.constdata)
+    AtR                                      0x08007424   Data           4  mymath.o(.constdata)
+    Gyro_G                                   0x08007428   Data           4  mymath.o(.constdata)
+    Gyro_Gr                                  0x0800742c   Data           4  mymath.o(.constdata)
+    PI_2                                     0x08007430   Data           4  mymath.o(.constdata)
+    Region$$Table$$Base                      0x08007488   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x080074a8   Number         0  anon$$obj.o(Region$$Table)
     SystemCoreClock                          0x20000014   Data           4  system_stm32f10x.o(.data)
     AHBPrescTable                            0x20000018   Data          16  system_stm32f10x.o(.data)
     SysTick_count22                          0x2000002c   Data           4  delay.o(.data)
@@ -2956,9 +2940,9 @@ Memory Map of the image
 
   Image Entry point : 0x080000ed
 
-  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x000076b0, Max: 0x00010000, ABSOLUTE, COMPRESSED[0x00007560])
+  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x00007678, Max: 0x00010000, ABSOLUTE, COMPRESSED[0x00007528])
 
-    Execution Region ER_IROM1 (Exec base: 0x08000000, Load base: 0x08000000, Size: 0x000074e0, Max: 0x00010000, ABSOLUTE)
+    Execution Region ER_IROM1 (Exec base: 0x08000000, Load base: 0x08000000, Size: 0x000074a8, Max: 0x00010000, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -3197,45 +3181,46 @@ Memory Map of the image
     0x080065fc   0x080065fc   0x00000024   Code   RO         5384    i.pxPortInitialiseStack  port.o
     0x08006620   0x08006620   0x00000120   Code   RO         4569    i.remote_unlock     remote.o
     0x08006740   0x08006740   0x0000004c   Code   RO         5480    i.sqrt              m_ws.l(sqrt.o)
-    0x0800678c   0x0800678c   0x000003f8   Code   RO         3497    i.start_task        user_freertos.o
-    0x08006b84   0x08006b84   0x00000026   Code   RO         3498    i.task_1000ms       user_freertos.o
-    0x08006baa   0x08006baa   0x00000024   Code   RO         3499    i.task_10ms         user_freertos.o
-    0x08006bce   0x08006bce   0x00000024   Code   RO         3500    i.task_20ms         user_freertos.o
-    0x08006bf2   0x08006bf2   0x00000024   Code   RO         3501    i.task_2ms          user_freertos.o
-    0x08006c16   0x08006c16   0x00000024   Code   RO         3502    i.task_4ms          user_freertos.o
-    0x08006c3a   0x08006c3a   0x00000026   Code   RO         3503    i.task_500ms        user_freertos.o
-    0x08006c60   0x08006c60   0x00000024   Code   RO         3504    i.task_50ms         user_freertos.o
-    0x08006c84   0x08006c84   0x00000024   Code   RO         3505    i.task_6ms          user_freertos.o
-    0x08006ca8   0x08006ca8   0x0000005c   Code   RO         3506    i.user_freertos_start  user_freertos.o
-    0x08006d04   0x08006d04   0x00000028   Code   RO         4696    i.uxListRemove      list.o
-    0x08006d2c   0x08006d2c   0x0000001a   Code   RO         4697    i.vListInitialise   list.o
-    0x08006d46   0x08006d46   0x00000006   Code   RO         4698    i.vListInitialiseItem  list.o
-    0x08006d4c   0x08006d4c   0x00000034   Code   RO         4699    i.vListInsert       list.o
-    0x08006d80   0x08006d80   0x00000018   Code   RO         4700    i.vListInsertEnd    list.o
-    0x08006d98   0x08006d98   0x00000024   Code   RO         5386    i.vPortEnterCritical  port.o
-    0x08006dbc   0x08006dbc   0x00000020   Code   RO         5387    i.vPortExitCritical  port.o
-    0x08006ddc   0x08006ddc   0x0000004c   Code   RO         5325    i.vPortFree         heap_4.o
-    0x08006e28   0x08006e28   0x00000018   Code   RO         5388    i.vPortSetupTimerInterrupt  port.o
-    0x08006e40   0x08006e40   0x000000d4   Code   RO         5025    i.vTaskDelete       tasks.o
-    0x08006f14   0x08006f14   0x0000006c   Code   RO         5036    i.vTaskStartScheduler  tasks.o
-    0x08006f80   0x08006f80   0x00000010   Code   RO         5038    i.vTaskSuspendAll   tasks.o
-    0x08006f90   0x08006f90   0x00000060   Code   RO         5039    i.vTaskSwitchContext  tasks.o
-    0x08006ff0   0x08006ff0   0x00000034   Code   RO         5389    i.xPortStartScheduler  port.o
-    0x08007024   0x08007024   0x00000034   Code   RO         5390    i.xPortSysTickHandler  port.o
-    0x08007058   0x08007058   0x00000068   Code   RO         5042    i.xTaskCreate       tasks.o
-    0x080070c0   0x080070c0   0x00000074   Code   RO         5043    i.xTaskDelayUntil   tasks.o
-    0x08007134   0x08007134   0x00000020   Code   RO         5049    i.xTaskGetSchedulerState  tasks.o
-    0x08007154   0x08007154   0x0000000c   Code   RO         5050    i.xTaskGetTickCount  tasks.o
-    0x08007160   0x08007160   0x00000190   Code   RO         5052    i.xTaskIncrementTick  tasks.o
-    0x080072f0   0x080072f0   0x0000015c   Code   RO         5054    i.xTaskResumeAll    tasks.o
-    0x0800744c   0x0800744c   0x0000000a   Data   RO         3657    .constdata          nrf24l01.o
-    0x08007456   0x08007456   0x00000002   PAD
-    0x08007458   0x08007458   0x00000018   Data   RO         4233    .constdata          mymath.o
-    0x08007470   0x08007470   0x00000050   Data   RO         5455    .constdata          m_ws.l(asin.o)
-    0x080074c0   0x080074c0   0x00000020   Data   RO         5880    Region$$Table       anon$$obj.o
+    0x0800678c   0x0800678c   0x000003fc   Code   RO         3497    i.start_task        user_freertos.o
+    0x08006b88   0x08006b88   0x0000001e   Code   RO         3498    i.task_1000ms       user_freertos.o
+    0x08006ba6   0x08006ba6   0x0000001c   Code   RO         3499    i.task_10ms         user_freertos.o
+    0x08006bc2   0x08006bc2   0x0000001c   Code   RO         3500    i.task_20ms         user_freertos.o
+    0x08006bde   0x08006bde   0x0000001c   Code   RO         3501    i.task_2ms          user_freertos.o
+    0x08006bfa   0x08006bfa   0x0000001c   Code   RO         3502    i.task_4ms          user_freertos.o
+    0x08006c16   0x08006c16   0x0000001e   Code   RO         3503    i.task_500ms        user_freertos.o
+    0x08006c34   0x08006c34   0x0000001c   Code   RO         3504    i.task_50ms         user_freertos.o
+    0x08006c50   0x08006c50   0x0000001c   Code   RO         3505    i.task_6ms          user_freertos.o
+    0x08006c6c   0x08006c6c   0x0000005c   Code   RO         3506    i.user_freertos_start  user_freertos.o
+    0x08006cc8   0x08006cc8   0x00000028   Code   RO         4696    i.uxListRemove      list.o
+    0x08006cf0   0x08006cf0   0x0000001a   Code   RO         4697    i.vListInitialise   list.o
+    0x08006d0a   0x08006d0a   0x00000006   Code   RO         4698    i.vListInitialiseItem  list.o
+    0x08006d10   0x08006d10   0x00000034   Code   RO         4699    i.vListInsert       list.o
+    0x08006d44   0x08006d44   0x00000018   Code   RO         4700    i.vListInsertEnd    list.o
+    0x08006d5c   0x08006d5c   0x00000024   Code   RO         5386    i.vPortEnterCritical  port.o
+    0x08006d80   0x08006d80   0x00000020   Code   RO         5387    i.vPortExitCritical  port.o
+    0x08006da0   0x08006da0   0x0000004c   Code   RO         5325    i.vPortFree         heap_4.o
+    0x08006dec   0x08006dec   0x00000018   Code   RO         5388    i.vPortSetupTimerInterrupt  port.o
+    0x08006e04   0x08006e04   0x000000d4   Code   RO         5025    i.vTaskDelete       tasks.o
+    0x08006ed8   0x08006ed8   0x0000006c   Code   RO         5036    i.vTaskStartScheduler  tasks.o
+    0x08006f44   0x08006f44   0x00000010   Code   RO         5038    i.vTaskSuspendAll   tasks.o
+    0x08006f54   0x08006f54   0x00000060   Code   RO         5039    i.vTaskSwitchContext  tasks.o
+    0x08006fb4   0x08006fb4   0x00000034   Code   RO         5389    i.xPortStartScheduler  port.o
+    0x08006fe8   0x08006fe8   0x00000034   Code   RO         5390    i.xPortSysTickHandler  port.o
+    0x0800701c   0x0800701c   0x00000068   Code   RO         5042    i.xTaskCreate       tasks.o
+    0x08007084   0x08007084   0x00000074   Code   RO         5043    i.xTaskDelayUntil   tasks.o
+    0x080070f8   0x080070f8   0x00000020   Code   RO         5049    i.xTaskGetSchedulerState  tasks.o
+    0x08007118   0x08007118   0x0000000c   Code   RO         5050    i.xTaskGetTickCount  tasks.o
+    0x08007124   0x08007124   0x00000190   Code   RO         5052    i.xTaskIncrementTick  tasks.o
+    0x080072b4   0x080072b4   0x0000015c   Code   RO         5054    i.xTaskResumeAll    tasks.o
+    0x08007410   0x08007410   0x0000000a   Data   RO         3657    .constdata          nrf24l01.o
+    0x0800741a   0x0800741a   0x00000002   PAD
+    0x0800741c   0x0800741c   0x00000018   Data   RO         4233    .constdata          mymath.o
+    0x08007434   0x08007434   0x00000004   PAD
+    0x08007438   0x08007438   0x00000050   Data   RO         5455    .constdata          m_ws.l(asin.o)
+    0x08007488   0x08007488   0x00000020   Data   RO         5880    Region$$Table       anon$$obj.o
 
 
-    Execution Region RW_IRAM1 (Exec base: 0x20000000, Load base: 0x080074e0, Size: 0x00003878, Max: 0x00005000, ABSOLUTE, COMPRESSED[0x00000080])
+    Execution Region RW_IRAM1 (Exec base: 0x20000000, Load base: 0x080074a8, Size: 0x00003878, Max: 0x00005000, ABSOLUTE, COMPRESSED[0x00000080])
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -3287,52 +3272,52 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
 
-       560         54          0         10          0       2473   adc.o
-      3708        194          0          6         64       9035   ano_data_transfer.o
-      2640        272          0         20        378       8072   ano_dt.o
-       948         82          0         58          0       1997   control.o
+       560         54          0         10          0       2517   adc.o
+      3708        194          0          6         64       9127   ano_data_transfer.o
+      2640        272          0         20        378       8144   ano_dt.o
+       948         82          0         58          0       2021   control.o
          0          0          0          0          0         32   core_cm3.o
-       184         34          0         10          0       2426   delay.o
-         0          0          0          0          0        980   event_groups.o
-       520         58          0         28      10240       4279   heap_4.o
-      1492         38          0          0          0       7050   i2c_software.o
-      1900         44          0         28         12       4368   imu.o
-       336        116          0         19       1652       5221   init.o
-        44          0          0          0          0        896   iwdg.o
-        88          0          0          0          0       1131   kalman.o
-       380         36          0         12          0       5953   led.o
-       148          0          0          0          0       2946   list.o
-       168         48          0          0          0      18174   main.o
-       132         22          0          0          0     278075   misc.o
-       744         62          0         76         36       2899   mpu6050.o
-        80          6         24          0          0        889   mymath.o
-      1048         98         10         10         64       7718   nrf24l01.o
-       180          0          0          0          0       1879   pid.o
-       404         48          0          4          0       8488   port.o
-       592         70          0         13          0       2219   remote.o
-       444         92          0          9         60       4154   scheduler.o
-       204         14          0          0          0       1042   spi.o
+       184         34          0         10          0       2466   delay.o
+         0          0          0          0          0        984   event_groups.o
+       520         58          0         28      10240       4319   heap_4.o
+      1492         38          0          0          0       7138   i2c_software.o
+      1900         44          0         28         12       4400   imu.o
+       336        116          0         19       1652       5273   init.o
+        44          0          0          0          0        908   iwdg.o
+        88          0          0          0          0       1147   kalman.o
+       380         36          0         12          0       5989   led.o
+       148          0          0          0          0       2990   list.o
+       168         48          0          0          0      18202   main.o
+       132         22          0          0          0     278159   misc.o
+       744         62          0         76         36       2939   mpu6050.o
+        80          6         24          0          0        901   mymath.o
+      1048         98         10         10         64       7802   nrf24l01.o
+       180          0          0          0          0       1903   pid.o
+       404         48          0          4          0       8560   port.o
+       592         70          0         13          0       2255   remote.o
+       444         92          0          9         60       4230   scheduler.o
+       204         14          0          0          0       1054   spi.o
         36          8        236          0       1024        768   startup_stm32f10x_md.o
-       390         10          0          0          0       6789   stm32f10x_adc.o
-       416          8          0          0          0       3162   stm32f10x_dma.o
-       426          6          0          0          0       3081   stm32f10x_gpio.o
-        40          0          0          0          0      16919   stm32f10x_it.o
-        68         30          0          0          0       2174   stm32f10x_iwdg.o
-       332         44          0         20          0       5133   stm32f10x_rcc.o
-       112          0          0          0          0       3466   stm32f10x_spi.o
-       918         92          0          0          0       7311   stm32f10x_tim.o
-       392          6          0          0          0       5547   stm32f10x_usart.o
-       328         28          0         20          0       2017   system_stm32f10x.o
-      2268        316          0         64        200      26967   tasks.o
-       464         26          0          0          0       1316   tim.o
-       376         28          0          3        256       2377   usart1.o
-       252         12          0          0          0       1602   usart3.o
-      1400        728          0         36          0       5823   user_freertos.o
+       390         10          0          0          0       6861   stm32f10x_adc.o
+       416          8          0          0          0       3194   stm32f10x_dma.o
+       426          6          0          0          0       3105   stm32f10x_gpio.o
+        40          0          0          0          0      16999   stm32f10x_it.o
+        68         30          0          0          0       2210   stm32f10x_iwdg.o
+       332         44          0         20          0       5181   stm32f10x_rcc.o
+       112          0          0          0          0       3506   stm32f10x_spi.o
+       918         92          0          0          0       7391   stm32f10x_tim.o
+       392          6          0          0          0       5595   stm32f10x_usart.o
+       328         28          0         20          0       2057   system_stm32f10x.o
+      2268        316          0         64        200      27119   tasks.o
+       464         26          0          0          0       1332   tim.o
+       376         28          0          3        256       2413   usart1.o
+       252         12          0          0          0       1626   usart3.o
+      1340        730          0         36          0       5835   user_freertos.o
 
     ----------------------------------------------------------------------
-     25196       2730        304        456      13992     476848   Object Totals
+     25136       2732        308        456      13992     478652   Object Totals
          0          0         32          0          0          0   (incl. Generated)
-        34          0          2         10          6          0   (incl. Padding)
+        34          0          6         10          6          0   (incl. Padding)
 
     ----------------------------------------------------------------------
 
@@ -3409,15 +3394,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-     29536       2900        384        464      13992     468956   Grand Totals
-     29536       2900        384        128      13992     468956   ELF Image Totals (compressed)
-     29536       2900        384        128          0          0   ROM Totals
+     29476       2902        388        464      13992     470760   Grand Totals
+     29476       2902        388        128      13992     470760   ELF Image Totals (compressed)
+     29476       2902        388        128          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                29920 (  29.22kB)
+    Total RO  Size (Code + RO Data)                29864 (  29.16kB)
     Total RW  Size (RW Data + ZI Data)             14456 (  14.12kB)
-    Total ROM Size (Code + RO Data + RW Data)      30048 (  29.34kB)
+    Total ROM Size (Code + RO Data + RW Data)      29992 (  29.29kB)
 
 ==============================================================================
 
